@@ -1,0 +1,16 @@
+services:
+  radar:
+    build:
+        context: .
+        dockerfile: Dockerfile    
+    ports:
+        - "8080:80"
+    environment:
+      - CLIENT_ID=[Google Client ID]
+      - API_KEY=[key]
+      - GTM_ID=[GTM ID]
+      - ADOBE_LAUNCH_SCRIPT_URL=[Adobe Launch URL]
+      - RINGS=["Adopt", "Trial", "Assess", "Hold"]
+      - QUADRANTS=["Techniques", "Platforms", "Tools", "Languages & Frameworks"]
+    volumes:
+      - /mnt/radar/files/:/opt/build-your-own-radar/
