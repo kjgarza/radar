@@ -8,7 +8,7 @@
   },
   {
     "name": "Github Co-pilot",
-    "ring": "Trial",
+    "ring": "Adopt",
     "quadrant": "Tools",
     "isNew": "TRUE",
     "description": "While the AI coding assistance market is getting busier and busier, GitHub Copilot remains our default choice and is used by many of our teams. Since we last wrote about GitHub Copilot, the most interesting improvements came in the chat feature. For instance, it's no longer necessary to clutter the code with comments as prompts; instead, an inline chat helps you prompt without writing a comment. The inline chat can also change code, not just write new lines. You can now also significantly expand the context of the chat when asking questions about your code by using the @workspace tag. This allows you to ask questions about the entire codebase, not just the open files. You can expand this context even further with the Copilot Enterprise version, which pulls in context from all repositories you host on GitHub. Finally, GitHub has started routing some chat requests to a more powerful GPT-4\u2013based model, and availability of the chat in the popular Jetbrains IDEs is imminent (although still in private beta at the time of writing). These releases show that the pace of improvements in the space has not slowed down. If you tried a coding assistant last year and dismissed it, we recommend that you keep monitoring the features being released and give it another try."
@@ -21,7 +21,7 @@
     "description": "Spectral is a JSON/YAML linter with an emphasis on OpenAPI and AsyncAPI specifications. It ships with a comprehensive set of out-of-the-box rules for these specs that can save developers headaches when designing and implementing APIs or event-driven collaboration. These rules check for proper API parameter specifications or the existence of a license statement in the spec, among other things. The CLI makes it easy to incorporate Spectral into both local development and CI/CD pipelines, and the JavaScript API supports more advanced use cases. The GitHub site links to publicly available real-world rule sets from companies like Adidas, giving teams a head start on adopting their own linting rules.\n"
   },
   {
-    "name": "42Crunch API Conformance",
+    "name": "APISIX",
     "ring": "Trial",
     "quadrant": "Tools",
     "isNew": "TRUE",
@@ -35,15 +35,8 @@
     "description": "One hallmark of widely used REST APIs is that their contracts are thoroughly documented. Developers are more likely to adopt and use APIs whose behavior and syntax are described accurately in a structured, organized way. Keeping this documentation up to date as the contract evolves can be time-consuming and is a task that is easily overlooked. Fern Docs helps with this by reducing the toil involved in writing and maintaining API documentation. Fern automatically generates a website with attractive, usable documentation from a specification file that can be versioned alongside the API code. While our initial impressions of this product are positive, Fern does require you to maintain API information in a proprietary configuration file. While it provides a way to convert OpenAPI specs into its own configuration format, we'd prefer a tool that generates docs directly from annotated source code."
   },
   {
-    "name": "Demo frontends for API-only products",
-    "ring": "Trial",
-    "quadrant": "Techniques",
-    "isNew": "TRUE",
-    "description": "One of the big challenges in developing APIs is capturing and communicating their business value. APIs are, by their nature, technical artifacts. Whereas developers can easily comprehend JSON payloads, OpenAPI (Swagger) specs and Postman demos, business stakeholders tend to respond better to demos they can interact with. The value of the product is more clearly articulated when you can see and touch it, which is why we sometimes find it worthwhile to invest in demo frontends for API-only products. When a custom graphical UI is built alongside an API product, stakeholders can see analogies to paper forms or reports that might be more familiar to them. As the interaction model and richness of the demo UI evolves, it allows them to make more informed decisions about the direction the API product should take. Working on the UI has the added benefit of increasing developers' empathy for business users. This isn't a new technique \u2014 we've been doing this successfully when necessary as long as API products have been around. However, because this technique isn't widely known, we thought it worthwhile calling attention to it."
-  },
-  {
     "name": "React Propmpting",
-    "ring": "Trial",
+    "ring": "Adopt",
     "quadrant": "Techniques",
     "isNew": "TRUE",
     "description": "ReAct prompting is a method for prompting LLMs intended to improve the accuracy of their responses over competing methods such as chain-of-thought (CoT). Introduced in a 2022 paper, it works by bringing together reasoning and action (hence ReAct). Such an approach helps make LLM responses more explainable and reduces hallucinations compared to CoT, giving prompters a better chance of getting what they want. LangChain was originally developed to support this style of prompting. Autonomous agents based on ReAct prompting have proven to be some of the most widely used applications of LLMs our teams have been building. Recently, OpenAI introduced function calling to its APIs to make ReAct and similar prompting styles easier to implement without resorting to external tools like LangChain. We're still in the early stages of defining this discipline, but so far, ReAct and its descendants have pointed the way to some of the most exciting applications of LLMs.\n"
@@ -57,21 +50,42 @@
   },
   {
     "name": "LangServer",
-    "ring": "Assess",
+    "ring": "Trial",
+    "quadrant": "languages-and-frameworks",
+    "isNew": "TRUE",
+    "description": "null"
+  },
+  {
+    "name": "FastAPI",
+    "ring": "Adopt",
+    "quadrant": "languages-and-frameworks",
+    "isNew": "TRUE",
+    "description": "null"
+  },
+  {
+    "name": "LlamaIndex",
+    "ring": "Adopt",
+    "quadrant": "languages-and-frameworks",
+    "isNew": "TRUE",
+    "description": "null"
+  },
+  {
+    "name": "LlamaIndex",
+    "ring": "Adopt",
     "quadrant": "languages-and-frameworks",
     "isNew": "TRUE",
     "description": "null"
   },
   {
     "name": "Langfuse",
-    "ring": "Assess",
+    "ring": "Trial",
     "quadrant": "Platforms",
     "isNew": "TRUE",
     "description": "Langfuse is an engineering platform for observability, testing and monitoring large language model (LLM) applications. Its SDKs support Python, JavaScript and TypeScript, OpenAI, LangChain and LiteLLM among other languages and frameworks. You can self-host the open-source version or use it as a paid cloud service. Our teams have had a positive experience, particularly in debugging complex LLM chains, analyzing completions and monitoring key metrics such as cost and latency across users, sessions, geographies, features and model versions. If you\u2019re looking to build data-driven LLM applications, Langfuse is a good option to consider.\n"
   },
   {
     "name": "LangSmith",
-    "ring": "Assess",
+    "ring": "Trial",
     "quadrant": "Tools",
     "isNew": "TRUE",
     "description": "null"
