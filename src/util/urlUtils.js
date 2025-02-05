@@ -16,7 +16,7 @@ function constructSheetUrl(sheetName) {
 
 function getDocumentOrSheetId() {
   const queryParams = QueryParams(window.location.search.substring(1))
-  return queryParams.documentId ?? queryParams.sheetId
+  return process.env.RADAR_JSON_URL || "http://localhost:8080/files/radar.json"
 }
 
 function getSheetName() {
