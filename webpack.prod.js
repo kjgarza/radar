@@ -69,6 +69,7 @@ module.exports = merge(common, {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.ENVIRONMENT': JSON.stringify('production'),
+      'process.env.RADAR_JSON_URL': JSON.stringify('http://localhost:8080/files/radar.json'),
     }),
   ],
 })
