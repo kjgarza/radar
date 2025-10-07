@@ -1,0 +1,210 @@
+'use client';
+
+import { useMemo } from 'react';
+import { Scatter } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend,
+  ChartOptions,
+  TooltipItem,
+} from 'chart.js';
+import { Blip, Quadrant, Ring } from '@/core/types';
+
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
+
+interface RadarChartProps {
+  blips: Blip[];
+  onBlipClick?: (blip: Blip) => void;
+}
+
+const RINGS: Ring[] = ['Adopt', 'Trial', 'Assess', 'Hold'];
+const QUADRANTS: Quadrant[] = [
+  'Languages & Frameworks',
+  'Tools',
+  'Platforms',
+  'Techniques',
+];
+
+const RING_RADIUS = {
+  Adopt: 0.25,
+  Trial: 0.5,
+  Assess: 0.75,
+  Hold: 1.0,
+};
+
+const QUADRANT_COLORS = {
+  'Languages & Frameworks': 'rgba(59, 130, 246, 0.8)', // blue-500
+  'Tools': 'rgba(34, 197, 94, 0.8)', // green-500
+  'Platforms': 'rgba(249, 115, 22, 0.8)', // orange-500
+  'Techniques': 'rgba(168, 85, 247, 0.8)', // purple-500
+};
+
+export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
+  const chartData = useMemo(() => {
+    const datasets = QUADRANTS.map((quadrant, qIndex) => {
+      const quadrantBlips = blips.filter((b) => b.quadrant === quadrant);
+      
+      // Calculate angle range for this quadrant
+      const startAngle = (qIndex * Math.PI) / 2;
+      const endAngle = ((qIndex + 1) * Math.PI) / 2;
+      
+      const data = quadrantBlips.map((blip, index) => {
+        const ringRadius = RING_RADIUS[blip.ring];
+        
+        // Distribute blips within the quadrant with some randomization
+        const angleSpread = endAngle - startAngle;
+        const angleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.8;
+        const angle = startAngle + angleOffset + angleSpread * 0.1;
+        
+        // Add some random jitter to radius within the ring
+        const radiusJitter = (Math.random() - 0.5) * 0.05;
+        const radius = ringRadius - 0.12 + radiusJitter;
+        
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        
+        return {
+          x,
+          y,
+          blip,
+        };
+      });
+
+      return {
+        label: quadrant,
+        data,
+        backgroundColor: QUADRANT_COLORS[quadrant],
+        borderColor: QUADRANT_COLORS[quadrant].replace('0.7', '1'),
+        borderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+      };
+    });
+
+    return { datasets };
+  }, [blips]);
+
+  const options: ChartOptions<'scatter'> = {
+    responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 1,
+    scales: {
+      x: {
+        min: -1.1,
+        max: 1.1,
+        grid: {
+          display: false,
+        },
+        ticks: {
+          display: false,
+        },
+        border: {
+          display: false,
+        },
+      },
+      y: {
+        min: -1.1,
+        max: 1.1,
+        grid: {
+          display: false,
+        },
+        ticks: {
+          display: false,
+        },
+        border: {
+          display: false,
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
+      tooltip: {
+        callbacks: {
+          label: (context: TooltipItem<'scatter'>) => {
+            const dataPoint = context.raw as { x: number; y: number; blip: Blip };
+            return [
+              dataPoint.blip.name,
+              `Ring: ${dataPoint.blip.ring}`,
+              `Quadrant: ${dataPoint.blip.quadrant}`,
+            ];
+          },
+        },
+      },
+    },
+    onClick: (event, elements) => {
+      if (elements.length > 0 && onBlipClick) {
+        const element = elements[0];
+        const datasetIndex = element.datasetIndex;
+        const index = element.index;
+        const dataPoint = chartData.datasets[datasetIndex].data[index];
+        if ('blip' in dataPoint) {
+          onBlipClick(dataPoint.blip);
+        }
+      }
+    },
+  };
+
+  return (
+    <div className="relative w-full max-w-4xl mx-auto">
+      {/* Ring labels */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+        <svg className="w-full h-full" viewBox="-110 -110 220 220">
+          {/* Draw rings */}
+          {RINGS.map((ring, index) => {
+            const radius = RING_RADIUS[ring] * 100;
+            return (
+              <g key={ring}>
+                <circle
+                  cx="0"
+                  cy="0"
+                  r={radius}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="0.5"
+                  className="text-gray-300"
+                  opacity="0.3"
+                />
+                <text
+                  x="0"
+                  y={-radius + 5}
+                  textAnchor="middle"
+                  className="text-xs fill-gray-600"
+                  fontSize="5"
+                >
+                  {ring}
+                </text>
+              </g>
+            );
+          })}
+          
+          {/* Draw quadrant dividers */}
+          <line x1="-110" y1="0" x2="110" y2="0" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" opacity="0.3" />
+          <line x1="0" y1="-110" x2="0" y2="110" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" opacity="0.3" />
+          
+          {/* Quadrant labels */}
+          <text x="50" y="-85" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
+            Languages & Frameworks
+          </text>
+          <text x="50" y="90" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
+            Tools
+          </text>
+          <text x="-50" y="90" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
+            Platforms
+          </text>
+          <text x="-50" y="-85" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
+            Techniques
+          </text>
+        </svg>
+      </div>
+      
+      {/* Chart */}
+      <Scatter data={chartData} options={options} />
+    </div>
+  );
+}

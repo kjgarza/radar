@@ -1,0 +1,330 @@
+{
+  "editions": [
+    {
+      "id": "2025-10",
+      "version": "Vol 1 (2025 Oct)",
+      "releaseDate": "2025-10-01T00:00:00Z",
+      "description": "Kristian Garza's technology radar edition showcasing the current state of technologies and practices.",
+      "blips": [
+        {
+          "id": "blip-nextjs",
+          "name": "Next.js",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "Next.js is a React framework for building full-stack web applications with excellent performance and developer experience.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://nextjs.org"],
+          "tags": ["frontend", "react", "ssr"]
+        },
+        {
+          "id": "blip-typescript",
+          "name": "TypeScript",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "TypeScript adds static typing to JavaScript, improving code quality and developer productivity.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://www.typescriptlang.org"],
+          "tags": ["language", "javascript"]
+        },
+        {
+          "id": "blip-tailwind",
+          "name": "Tailwind CSS",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "A utility-first CSS framework for rapidly building custom user interfaces.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://tailwindcss.com"],
+          "tags": ["css", "styling"]
+        },
+        {
+          "id": "blip-chartjs",
+          "name": "Chart.js",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Trial",
+          "description": "Simple yet flexible JavaScript charting library for designers and developers.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://www.chartjs.org"],
+          "tags": ["visualization", "charts"]
+        },
+        {
+          "id": "blip-react-19",
+          "name": "React 19",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Trial",
+          "description": "The latest major version of React with new features like Server Components and improved hooks.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://react.dev"],
+          "tags": ["frontend", "react"]
+        },
+        {
+          "id": "blip-vite",
+          "name": "Vite",
+          "quadrant": "Tools",
+          "ring": "Adopt",
+          "description": "Next generation frontend tooling with fast build times and excellent developer experience.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://vitejs.dev"],
+          "tags": ["build-tool", "frontend"]
+        },
+        {
+          "id": "blip-pnpm",
+          "name": "pnpm",
+          "quadrant": "Tools",
+          "ring": "Adopt",
+          "description": "Fast, disk space efficient package manager for Node.js.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://pnpm.io"],
+          "tags": ["package-manager", "nodejs"]
+        },
+        {
+          "id": "blip-vercel",
+          "name": "Vercel",
+          "quadrant": "Platforms",
+          "ring": "Adopt",
+          "description": "Platform for frontend frameworks and static sites, built to integrate with headless CMS, databases, and more.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://vercel.com"],
+          "tags": ["hosting", "deployment"]
+        },
+        {
+          "id": "blip-github-actions",
+          "name": "GitHub Actions",
+          "quadrant": "Platforms",
+          "ring": "Adopt",
+          "description": "Automate, customize, and execute software development workflows right in your repository.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://github.com/features/actions"],
+          "tags": ["ci-cd", "automation"]
+        },
+        {
+          "id": "blip-static-site-generation",
+          "name": "Static Site Generation",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "Pre-rendering pages at build time for better performance and SEO.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [],
+          "tags": ["architecture", "performance"]
+        },
+        {
+          "id": "blip-component-driven-development",
+          "name": "Component-Driven Development",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "Building UIs from the bottom up starting with components and ending with pages.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [],
+          "tags": ["architecture", "frontend"]
+        },
+        {
+          "id": "blip-design-systems",
+          "name": "Design Systems",
+          "quadrant": "Techniques",
+          "ring": "Trial",
+          "description": "A collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications.",
+          "isNew": false,
+          "movement": "moved_in",
+          "previousRing": "Assess",
+          "links": [],
+          "tags": ["ui", "design"]
+        },
+        {
+          "id": "blip-turborepo",
+          "name": "Turborepo",
+          "quadrant": "Tools",
+          "ring": "Assess",
+          "description": "High-performance build system for JavaScript and TypeScript monorepos.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://turbo.build"],
+          "tags": ["monorepo", "build-tool"]
+        },
+        {
+          "id": "blip-bun",
+          "name": "Bun",
+          "quadrant": "Tools",
+          "ring": "Assess",
+          "description": "All-in-one JavaScript runtime and toolkit designed for speed.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://bun.sh"],
+          "tags": ["runtime", "javascript"]
+        },
+        {
+          "id": "blip-web-components",
+          "name": "Web Components",
+          "quadrant": "Techniques",
+          "ring": "Assess",
+          "description": "Suite of different technologies allowing you to create reusable custom elements.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [],
+          "tags": ["web-standards", "components"]
+        },
+        {
+          "id": "blip-jquery",
+          "name": "jQuery",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Hold",
+          "description": "Legacy JavaScript library. Modern alternatives are recommended for new projects.",
+          "isNew": false,
+          "movement": "moved_out",
+          "previousRing": "Assess",
+          "links": ["https://jquery.com"],
+          "tags": ["javascript", "legacy"]
+        }
+      ]
+    },
+    {
+      "id": "2025-04",
+      "version": "Vol 0 (2025 Apr)",
+      "releaseDate": "2025-04-01T00:00:00Z",
+      "description": "Initial radar edition establishing our baseline technology landscape.",
+      "blips": [
+        {
+          "id": "blip-nextjs",
+          "name": "Next.js",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "Next.js is a React framework for building full-stack web applications with excellent performance and developer experience.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://nextjs.org"],
+          "tags": ["frontend", "react", "ssr"]
+        },
+        {
+          "id": "blip-typescript",
+          "name": "TypeScript",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "TypeScript adds static typing to JavaScript, improving code quality and developer productivity.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://www.typescriptlang.org"],
+          "tags": ["language", "javascript"]
+        },
+        {
+          "id": "blip-tailwind",
+          "name": "Tailwind CSS",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "A utility-first CSS framework for rapidly building custom user interfaces.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://tailwindcss.com"],
+          "tags": ["css", "styling"]
+        },
+        {
+          "id": "blip-vite",
+          "name": "Vite",
+          "quadrant": "Tools",
+          "ring": "Adopt",
+          "description": "Next generation frontend tooling with fast build times and excellent developer experience.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://vitejs.dev"],
+          "tags": ["build-tool", "frontend"]
+        },
+        {
+          "id": "blip-pnpm",
+          "name": "pnpm",
+          "quadrant": "Tools",
+          "ring": "Adopt",
+          "description": "Fast, disk space efficient package manager for Node.js.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://pnpm.io"],
+          "tags": ["package-manager", "nodejs"]
+        },
+        {
+          "id": "blip-vercel",
+          "name": "Vercel",
+          "quadrant": "Platforms",
+          "ring": "Adopt",
+          "description": "Platform for frontend frameworks and static sites, built to integrate with headless CMS, databases, and more.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://vercel.com"],
+          "tags": ["hosting", "deployment"]
+        },
+        {
+          "id": "blip-github-actions",
+          "name": "GitHub Actions",
+          "quadrant": "Platforms",
+          "ring": "Adopt",
+          "description": "Automate, customize, and execute software development workflows right in your repository.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://github.com/features/actions"],
+          "tags": ["ci-cd", "automation"]
+        },
+        {
+          "id": "blip-static-site-generation",
+          "name": "Static Site Generation",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "Pre-rendering pages at build time for better performance and SEO.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [],
+          "tags": ["architecture", "performance"]
+        },
+        {
+          "id": "blip-component-driven-development",
+          "name": "Component-Driven Development",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "Building UIs from the bottom up starting with components and ending with pages.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [],
+          "tags": ["architecture", "frontend"]
+        },
+        {
+          "id": "blip-design-systems",
+          "name": "Design Systems",
+          "quadrant": "Techniques",
+          "ring": "Assess",
+          "description": "A collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [],
+          "tags": ["ui", "design"]
+        },
+        {
+          "id": "blip-web-components",
+          "name": "Web Components",
+          "quadrant": "Techniques",
+          "ring": "Assess",
+          "description": "Suite of different technologies allowing you to create reusable custom elements.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [],
+          "tags": ["web-standards", "components"]
+        },
+        {
+          "id": "blip-jquery",
+          "name": "jQuery",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Assess",
+          "description": "Legacy JavaScript library. Modern alternatives are recommended for new projects.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://jquery.com"],
+          "tags": ["javascript", "legacy"]
+        }
+      ]
+    }
+  ]
+}
