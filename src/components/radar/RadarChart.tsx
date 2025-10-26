@@ -121,8 +121,7 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
     },
     plugins: {
       legend: {
-        display: true,
-        position: 'bottom',
+        display: false,
       },
       tooltip: {
         callbacks: {
@@ -172,10 +171,10 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
                 />
                 <text
                   x="0"
-                  y={-radius + 5}
+                  y={-radius + 3}
                   textAnchor="middle"
                   className="text-xs fill-gray-600"
-                  fontSize="5"
+                  fontSize="2.5"
                 >
                   {ring}
                 </text>
@@ -188,17 +187,17 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
           <line x1="0" y1="-110" x2="0" y2="110" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" opacity="0.3" />
           
           {/* Quadrant labels */}
-          <text x="50" y="-85" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
-            Languages & Frameworks
+          <text x="70" y="-90" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5" fill="rgba(59, 130, 246, 1)">
+            Frameworks
           </text>
-          <text x="50" y="90" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
-            Tools
+          <text x="70" y="95" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5" fill="rgba(168, 85, 247, 1)">
+            Techniques
           </text>
-          <text x="-50" y="90" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
+          <text x="-70" y="95" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5" fill="rgba(249, 115, 22, 1)">
             Platforms
           </text>
-          <text x="-50" y="-85" textAnchor="middle" className="text-sm fill-gray-700 font-semibold" fontSize="6">
-            Techniques
+          <text x="-70" y="-90" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5"  fill="rgba(34, 197, 94, 1)">
+            Tools
           </text>
         </svg>
       </div>

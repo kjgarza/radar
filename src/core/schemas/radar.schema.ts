@@ -20,6 +20,8 @@ export const BlipSchema = z.object({
   previousRing: RingSchema.optional(),
   links: z.array(z.string().url()).default([]),
   tags: z.array(z.string()).default([]),
+  caseStudyUrl: z.string().url().optional(),
+  thoughtworksUrl: z.string().url().optional(),
 });
 
 export const EditionSchema = z.object({

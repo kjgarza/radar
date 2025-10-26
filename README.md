@@ -123,13 +123,33 @@ The radar data is stored in `data/radar.json` and follows this structure:
           "movement": "moved_in",
           "previousRing": "Assess",
           "links": ["https://example.com"],
-          "tags": ["tag1", "tag2"]
+          "tags": ["tag1", "tag2"],
+          "caseStudyUrl": "https://yourwebsite.com/case-studies/tech-name",
+          "thoughtworksUrl": "https://www.thoughtworks.com/radar/languages-and-frameworks/tech-name"
         }
       ]
     }
   ]
 }
 ```
+
+### Required Fields
+
+- `id`: Unique identifier for the blip
+- `name`: Display name of the technology
+- `quadrant`: Which quadrant the technology belongs to
+- `ring`: Current assessment ring
+- `description`: Brief description of the technology
+- `isNew`: Whether this is a new entry in this edition
+- `movement`: How the technology moved between rings
+
+### Optional Fields
+
+- `previousRing`: The ring the technology was in before (if it moved)
+- `links`: Array of relevant URLs (documentation, homepage, etc.)
+- `tags`: Array of tags for categorization and filtering
+- `caseStudyUrl`: Link to a case study on your website
+- `thoughtworksUrl`: Link to ThoughtWorks Technology Radar entry
 
 ### Quadrants
 

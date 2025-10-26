@@ -55,19 +55,47 @@ export function BlipList({ blips, onBlipClick }: BlipListProps) {
                 ))}
               </div>
               {blip.links.length > 0 && (
-                <div className="mt-2 flex gap-2">
+                <div className="mt-2 flex flex-wrap gap-3">
                   {blip.links.map((link, index) => (
                     <a
                       key={index}
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-blue-600 hover:underline"
+                      className="text-xs text-primary hover:underline"
                       onClick={(e) => e.stopPropagation()}
                     >
                       Link {index + 1}
                     </a>
                   ))}
+                </div>
+              )}
+              {(blip.caseStudyUrl || blip.thoughtworksUrl) && (
+                <div className="mt-2 flex flex-wrap gap-3">
+                  {blip.caseStudyUrl && (
+                    <a
+                      href={blip.caseStudyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Case Study
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  )}
+                  {blip.thoughtworksUrl && (
+                    <a
+                      href={blip.thoughtworksUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      ThoughtWorks
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  )}
                 </div>
               )}
             </div>

@@ -38,12 +38,6 @@ export default function RootLayout({
                 </Link>
                 <div className="flex gap-6">
                   <Link
-                    href="/"
-                    className="text-sm hover:underline"
-                  >
-                    Home
-                  </Link>
-                  <Link
                     href="/editions"
                     className="text-sm hover:underline"
                   >
@@ -58,42 +52,36 @@ export default function RootLayout({
           </main>
           <footer className="border-t py-8">
             <div className="container mx-auto px-4">
-              <div className="flex w-full max-w-4xl mx-auto flex-col items-center justify-between gap-4 font-mono font-medium">
-                <div className="flex flex-wrap items-center gap-4">
-                  <div className="flex items-center gap-4">
-                    <a 
-                      className="text-primary hover:text-accent hover:underline" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      href={siteConfig.author.github}
-                    >
-                      GitHub
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-neutral-400">·</span>
-                    <a 
-                      className="text-primary hover:text-accent hover:underline" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      href={siteConfig.author.linkedin}
-                    >
-                      LinkedIn
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-neutral-400">·</span>
-                    <a 
-                      className="text-primary hover:text-accent hover:underline" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      href={`mailto:${siteConfig.author.email}`}
-                    >
-                      Email
-                    </a>
-                  </div>
+              <div className="flex w-full max-w-4xl mx-auto flex-col items-center justify-between gap-4 font-mono text-sm">
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <a 
+                    className="text-foreground hover:text-primary hover:underline transition-colors" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    href={siteConfig.author.github}
+                  >
+                    GitHub
+                  </a>
+                  <span className="text-muted-foreground">·</span>
+                  <a 
+                    className="text-foreground hover:text-primary hover:underline transition-colors" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    href={siteConfig.author.linkedin}
+                  >
+                    LinkedIn
+                  </a>
+                  <span className="text-muted-foreground">·</span>
+                  <a 
+                    className="text-foreground hover:text-primary hover:underline transition-colors" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    href={`mailto:${siteConfig.author.email}`}
+                  >
+                    Email
+                  </a>
                 </div>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-xs">
                   Copyright © {new Date().getFullYear()} {siteConfig.author.name}
                 </p>
               </div>

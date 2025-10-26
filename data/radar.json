@@ -170,6 +170,7 @@
           "isNew": false,
           "movement": "no_change",
           "links": [],
+          "caseStudyUrl": "https://bun.sh/blog/web-components",
           "tags": ["web-standards", "components"]
         },
         {
