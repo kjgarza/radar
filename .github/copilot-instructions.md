@@ -115,28 +115,14 @@ pnpm build && pnpm start   # Serves static files from out/
 
 ### CI/CD Pipeline
 
-**Current State**: No CI/CD configured (no `.github/workflows/`)
+**Current State**: GitHub Pages deployment configured via GitHub Actions
 
-**Recommended Setup**:
-```yaml
-# .github/workflows/build.yml
-name: Build & Validate
-on: [push, pull_request]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 10.15.0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.19.2'
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm build  # Validates schema + builds
-```
+**Workflow**: `.github/workflows/deploy.yml`
+- Triggers on push to `main` branch
+- Uses pnpm 10.15.0 and Node.js 20.19.2
+- Builds with `NEXT_PUBLIC_BASE_PATH=/radar` for GitHub Pages
+- Deploys `out/` directory to GitHub Pages
+- See `DEPLOYMENT.md` for detailed setup guide
 
 ### Code Quality & Security Rules
 
