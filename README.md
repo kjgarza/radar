@@ -181,6 +181,56 @@ This generates a static site in the `out/` directory.
 
 ## Deployment
 
+### GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages.
+
+#### Initial Setup
+
+1. **Enable GitHub Pages** in your repository:
+   - Go to Settings > Pages
+   - Set Source to "GitHub Actions"
+
+2. **Configure base path** (if not using a custom domain):
+   - The workflow is pre-configured for `https://username.github.io/radar/`
+   - For a custom domain or root deployment, edit `.github/workflows/deploy.yml` and remove the `NEXT_PUBLIC_BASE_PATH` environment variable
+
+3. **Push to main branch**:
+   ```bash
+   git add .
+   git commit -m "Add GitHub Pages deployment"
+   git push origin main
+   ```
+
+The workflow will automatically build and deploy your site to GitHub Pages. Check the Actions tab to monitor deployment progress.
+
+#### Custom Domain
+
+To use a custom domain:
+
+1. Add a `CNAME` file to the `public/` directory with your domain:
+   ```bash
+   echo "yourdomain.com" > public/CNAME
+   ```
+
+2. Update `.github/workflows/deploy.yml` and remove the `NEXT_PUBLIC_BASE_PATH` variable:
+   ```yaml
+   - name: Build with Next.js
+     run: pnpm build
+     # Remove: env: NEXT_PUBLIC_BASE_PATH: /radar
+   ```
+
+3. Configure your DNS provider to point to GitHub Pages
+
+#### Manual Deployment
+
+To deploy manually:
+
+```bash
+pnpm build
+# Upload the out/ directory to your hosting provider
+```
+
 ### Vercel
 
 The easiest way to deploy:
@@ -189,14 +239,16 @@ The easiest way to deploy:
 2. Import the repository in Vercel
 3. Vercel will automatically detect Next.js and deploy
 
+**Note**: When deploying to Vercel, you don't need the `basePath` configuration. The workflow environment variable only applies to GitHub Pages deployment.
+
 ### Other Static Hosts
 
 You can deploy the `out/` directory to any static hosting service:
 
 - Netlify
-- GitHub Pages
 - AWS S3 + CloudFront
 - Azure Static Web Apps
+- Cloudflare Pages
 
 ## Updating the Radar
 
