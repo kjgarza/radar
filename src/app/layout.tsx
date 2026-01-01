@@ -43,6 +43,12 @@ export default function RootLayout({
                   >
                     Editions
                   </Link>
+                  <Link
+                    href="/about"
+                    className="text-sm hover:underline"
+                  >
+                    About
+                  </Link>
                 </div>
               </nav>
             </div>

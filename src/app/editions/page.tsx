@@ -12,13 +12,15 @@ export default function EditionsPage() {
   );
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-4xl font-bold mb-2">Radar Editions</h1>
-        <p className="text-muted-foreground">
+    <div className="max-w-5xl mx-auto px-6 py-12 md:py-16">
+      <header className="mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">
+          Radar Editions
+        </h1>
+        <p className="text-lg text-muted-foreground">
           Browse through all published technology radar editions
         </p>
-      </div>
+      </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sortedEditions.map((edition) => {
@@ -33,15 +35,19 @@ export default function EditionsPage() {
 
           return (
             <Link key={edition.id} href={`/edition/${edition.id}`}>
-              <Card className="p-6 hover:shadow-lg transition-shadow h-full cursor-pointer">
-                <h2 className="text-xl font-bold mb-2">{edition.version}</h2>
+              <Card className="p-6 hover:shadow-lg hover:border-primary/30 transition-all h-full cursor-pointer group">
+                <h2 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
+                  {edition.version}
+                </h2>
                 <p className="text-sm text-muted-foreground mb-4">
                   {releaseDate}
                 </p>
-                <p className="text-sm mb-4">{edition.description}</p>
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <p className="text-sm text-foreground/80 mb-4 line-clamp-2">
+                  {edition.description}
+                </p>
+                <div className="flex items-center gap-4 text-sm text-muted-foreground pt-2 border-t border-border/50">
                   <span>{edition.blips.length} blips</span>
-                  <span>
+                  <span className="text-primary/80">
                     {edition.blips.filter((b) => b.isNew).length} new
                   </span>
                 </div>
@@ -52,8 +58,10 @@ export default function EditionsPage() {
       </div>
 
       {editions.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">No editions available yet.</p>
+        <div className="text-center py-16">
+          <p className="text-lg text-muted-foreground">
+            No editions available yet.
+          </p>
         </div>
       )}
     </div>
