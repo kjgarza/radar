@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Technology Radar",
+  title: "Kristian's Technology Radar",
   description: "Track and visualize technology trends and decisions",
 };
 
