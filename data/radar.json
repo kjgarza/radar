@@ -184,6 +184,76 @@
           "previousRing": "Assess",
           "links": ["https://jquery.com"],
           "tags": ["javascript", "legacy"]
+        },
+        {
+          "id": "blip-github-copilot",
+          "name": "GitHub Copilot",
+          "quadrant": "Tools",
+          "ring": "Adopt",
+          "description": "AI pair programmer providing real-time code suggestions, chat capabilities, and agent-based assistance. Now with multi-model support and MCP integration.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://github.com/features/copilot",
+            "https://docs.github.com/copilot"
+          ],
+          "tags": ["ai", "code-assistant", "productivity", "mcp"]
+        },
+        {
+          "id": "blip-arc-browser",
+          "name": "Arc",
+          "quadrant": "Tools",
+          "ring": "Trial",
+          "description": "Professional browser with innovative features like auto-closing tabs, split view, and Air Traffic control. Best-in-class for productivity despite uncertain future updates.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://arc.net",
+            "https://arc.net/download"
+          ],
+          "tags": ["browser", "productivity", "workspace-management"]
+        },
+        {
+          "id": "blip-dia-browser",
+          "name": "Dia",
+          "quadrant": "Tools",
+          "ring": "Trial",
+          "description": "AI-native browser from Arc creators that chats with your tabs. Context tab feature enables faster, more efficient workflows than competing approaches.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://diabrowser.com",
+            "https://diabrowser.com/download"
+          ],
+          "tags": ["ai", "browser", "context-aware", "productivity"]
+        },
+        {
+          "id": "blip-chatgpt-atlas",
+          "name": "ChatGPT Atlas",
+          "quadrant": "Tools",
+          "ring": "Assess",
+          "description": "GPT-native browsing with authenticated page access. Connects apps like Trello with Excel or Gmail without integrations, though currently slower than Dia's context tab approach.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://openai.com/chatgpt",
+            "https://chatgpt.com"
+          ],
+          "tags": ["ai", "browsing", "authentication", "integration"]
+        },
+        {
+          "id": "blip-mcp-servers",
+          "name": "Model Context Protocol",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "Open standard for connecting AI applications to data sources and tools. The OpenAPI equivalent for agentic work—easy to implement with widespread adoption.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://modelcontextprotocol.io",
+            "https://modelcontextprotocol.io/specification"
+          ],
+          "tags": ["ai", "standards", "interoperability", "agents"]
         }
       ]
     },
