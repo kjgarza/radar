@@ -1,399 +1,206 @@
 {
   "editions": [
     {
-      "id": "2025-10",
-      "version": "Vol 1 (2025 Oct)",
-      "releaseDate": "2025-10-01T00:00:00Z",
+      "id": "2025-12",
+      "version": "Vol 1 (2025 Dec)",
+      "releaseDate": "2025-12-01T00:00:00Z",
       "description": "Kristian Garza's technology radar edition showcasing the current state of technologies and practices.",
       "blips": [
         {
-          "id": "blip-nextjs",
-          "name": "Next.js",
+          "id": "blip-fastapi",
+          "name": "FastAPI",
           "quadrant": "Languages & Frameworks",
           "ring": "Adopt",
-          "description": "Next.js is a React framework for building full-stack web applications with excellent performance and developer experience.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://nextjs.org"],
-          "tags": ["frontend", "react", "ssr"]
-        },
-        {
-          "id": "blip-typescript",
-          "name": "TypeScript",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Adopt",
-          "description": "TypeScript adds static typing to JavaScript, improving code quality and developer productivity.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://www.typescriptlang.org"],
-          "tags": ["language", "javascript"]
-        },
-        {
-          "id": "blip-tailwind",
-          "name": "Tailwind CSS",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Adopt",
-          "description": "A utility-first CSS framework for rapidly building custom user interfaces.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://tailwindcss.com"],
-          "tags": ["css", "styling"]
-        },
-        {
-          "id": "blip-chartjs",
-          "name": "Chart.js",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Trial",
-          "description": "Simple yet flexible JavaScript charting library for designers and developers.",
+          "description": "Asynchronous Python framework that has reshaped not just how I work but how I think about API development itself. Perhaps the best framework at the moment for production APIs that need elegant concurrent request handling.",
           "isNew": true,
           "movement": "moved_in",
-          "links": ["https://www.chartjs.org"],
-          "tags": ["visualization", "charts"]
+          "links": ["https://fastapi.tiangolo.com"],
+          "tags": ["python", "api", "async", "production"]
         },
         {
-          "id": "blip-react-19",
-          "name": "React 19",
+          "id": "blip-langchain",
+          "name": "Langchain",
           "quadrant": "Languages & Frameworks",
           "ring": "Trial",
-          "description": "The latest major version of React with new features like Server Components and improved hooks.",
+          "description": "Framework for accessing LLMs that many dismiss as unnecessary abstraction, yet proves useful—critically so—when products require flexibility to move between models. The abstraction, criticized though it may be, proves light enough to justify its existence.",
           "isNew": true,
           "movement": "moved_in",
-          "links": ["https://react.dev"],
-          "tags": ["frontend", "react"]
+          "links": ["https://www.langchain.com"],
+          "tags": ["llm", "ai", "framework", "abstraction"]
         },
         {
-          "id": "blip-vite",
-          "name": "Vite",
+          "id": "blip-llamaindex",
+          "name": "LlamaIndex",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Trial",
+          "description": "RAG application framework demonstrating decent utility—not exceptional, but reliable—for both small experimental projects and medium-sized production services. Occupies that productive middle ground between proof-of-concept and enterprise-scale.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://www.llamaindex.ai"],
+          "tags": ["rag", "ai", "llm", "retrieval"]
+        },
+        {
+          "id": "blip-claude-code",
+          "name": "Claude Code",
           "quadrant": "Tools",
           "ring": "Adopt",
-          "description": "Next generation frontend tooling with fast build times and excellent developer experience.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://vitejs.dev"],
-          "tags": ["build-tool", "frontend"]
+          "description": "Marketed as a coding agent but actually a general-purpose agent whose features proliferate beyond easy summarization. The skills feature and context engineering approach are fantastic—so much so that everyone seems to be copying it now.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://claude.ai/code"],
+          "tags": ["ai", "agent", "coding", "context-engineering"]
         },
         {
-          "id": "blip-pnpm",
-          "name": "pnpm",
+          "id": "blip-context7",
+          "name": "Context7",
           "quadrant": "Tools",
           "ring": "Adopt",
-          "description": "Fast, disk space efficient package manager for Node.js.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://pnpm.io"],
-          "tags": ["package-manager", "nodejs"]
+          "description": "Embodies those rare concepts that benefit everyone if everyone participates. Places documentation in LLM-accessible formats via MCPs, creating a virtuous cycle of accessibility. An essential tool that improves the entire ecosystem.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://context7.com"],
+          "tags": ["documentation", "mcp", "llm", "accessibility"]
         },
         {
-          "id": "blip-vercel",
-          "name": "Vercel",
+          "id": "blip-ux-pilot",
+          "name": "UX Pilot",
+          "quadrant": "Tools",
+          "ring": "Trial",
+          "description": "Used alongside designers to rapidly mock up interfaces with surprisingly smooth translation into Figma and development. My relationship with the tool remains more hopeful than established, more anticipatory than definitive.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": ["design", "mockup", "ai", "prototyping"]
+        },
+        {
+          "id": "blip-figma-playwright-mcps",
+          "name": "Figma and Playwright MCPs for Frontend Development",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "A paradigm shift in the design-to-development pipeline. You forget immediately about traditional difficulties of translating Figma designs into functional code. Enables developers to move deeper into design while designers engage more directly with development realities.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": ["frontend", "design-to-code", "mcp", "workflow"]
+        },
+        {
+          "id": "blip-agents-md",
+          "name": "AGENTS.md",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "Specification for normalized instructions for coding and databases—a vital, perhaps overdue effort to standardize what was becoming chaotic. Actively transforming repositories to this format, discovering clarity I hadn't realized was missing.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://agents.md"],
+          "tags": [
+            "standardization",
+            "agents",
+            "context-engineering",
+            "specification"
+          ]
+        },
+        {
+          "id": "blip-mcp-platform",
+          "name": "Model Context Protocol (MCP)",
           "quadrant": "Platforms",
           "ring": "Adopt",
-          "description": "Platform for frontend frameworks and static sites, built to integrate with headless CMS, databases, and more.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://vercel.com"],
-          "tags": ["hosting", "deployment"]
-        },
-        {
-          "id": "blip-github-actions",
-          "name": "GitHub Actions",
-          "quadrant": "Platforms",
-          "ring": "Adopt",
-          "description": "Automate, customize, and execute software development workflows right in your repository.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://github.com/features/actions"],
-          "tags": ["ci-cd", "automation"]
-        },
-        {
-          "id": "blip-static-site-generation",
-          "name": "Static Site Generation",
-          "quadrant": "Techniques",
-          "ring": "Adopt",
-          "description": "Pre-rendering pages at build time for better performance and SEO.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": [],
-          "tags": ["architecture", "performance"]
-        },
-        {
-          "id": "blip-component-driven-development",
-          "name": "Component-Driven Development",
-          "quadrant": "Techniques",
-          "ring": "Adopt",
-          "description": "Building UIs from the bottom up starting with components and ending with pages.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": [],
-          "tags": ["architecture", "frontend"]
-        },
-        {
-          "id": "blip-design-systems",
-          "name": "Design Systems",
-          "quadrant": "Techniques",
-          "ring": "Trial",
-          "description": "A collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications.",
-          "isNew": false,
-          "movement": "moved_in",
-          "previousRing": "Assess",
-          "links": [],
-          "tags": ["ui", "design"]
-        },
-        {
-          "id": "blip-turborepo",
-          "name": "Turborepo",
-          "quadrant": "Tools",
-          "ring": "Assess",
-          "description": "High-performance build system for JavaScript and TypeScript monorepos.",
+          "description": "Method for accessing data rather than relying directly on APIs. I find myself genuinely torn—witnessing useful proliferation of tooling while encountering disadvantages needing resolution. Still, remains one of the primary solutions for making tools accessible to agents.",
           "isNew": true,
           "movement": "moved_in",
-          "links": ["https://turbo.build"],
-          "tags": ["monorepo", "build-tool"]
+          "links": ["https://modelcontextprotocol.io"],
+          "tags": ["protocol", "interoperability", "agents", "data-access"]
+        },
+        {
+          "id": "blip-github-actions-extended",
+          "name": "GitHub Actions for Event-Driven Architecture",
+          "quadrant": "Platforms",
+          "ring": "Adopt",
+          "description": "GitHub Actions is not new—I have been using it for years in the traditional sense, for CI/CD workflows, the sort of automation that everyone expects—but nowadays I find myself using it mostly, almost exclusively even, to integrate services and orchestrate event-driven architectures, which has been, I must say without exaggeration, incredible. It has helped me create many services that I was previously considering less seriously, or perhaps not considering at all, services that now feel not just possible but inevitable.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": [
+            "https://github.com/features/actions",
+            "https://docs.github.com/actions"
+          ],
+          "tags": [
+            "ci-cd",
+            "automation",
+            "event-driven",
+            "integration",
+            "workflows"
+          ]
+        },
+        {
+          "id": "blip-eleventy",
+          "name": "Eleventy (11ty)",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "A framework for static websites, though mentioning only this framework seems reductive when what I'm really gesturing toward is that static site generators in general are proving remarkably useful now that we can spin up new apps so quickly, almost thoughtlessly. I have been using 11ty across five small websites and apps that take advantage of JSON as database and local storage together with the really quick—genuinely quick, not just marketing-quick—performance of an 11ty application.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://www.11ty.dev", "https://www.11ty.dev/docs"],
+          "tags": ["static-site", "jamstack", "performance", "minimal"]
         },
         {
           "id": "blip-bun",
           "name": "Bun",
           "quadrant": "Tools",
-          "ring": "Assess",
-          "description": "All-in-one JavaScript runtime and toolkit designed for speed.",
-          "isNew": true,
-          "movement": "moved_in",
-          "links": ["https://bun.sh"],
-          "tags": ["runtime", "javascript"]
-        },
-        {
-          "id": "blip-web-components",
-          "name": "Web Components",
-          "quadrant": "Techniques",
-          "ring": "Assess",
-          "description": "Suite of different technologies allowing you to create reusable custom elements.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": [],
-          "caseStudyUrl": "https://bun.sh/blog/web-components",
-          "tags": ["web-standards", "components"]
-        },
-        {
-          "id": "blip-jquery",
-          "name": "jQuery",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Hold",
-          "description": "Legacy JavaScript library. Modern alternatives are recommended for new projects.",
-          "isNew": false,
-          "movement": "moved_out",
-          "previousRing": "Assess",
-          "links": ["https://jquery.com"],
-          "tags": ["javascript", "legacy"]
-        },
-        {
-          "id": "blip-github-copilot",
-          "name": "GitHub Copilot",
-          "quadrant": "Tools",
           "ring": "Adopt",
-          "description": "AI pair programmer providing real-time code suggestions, chat capabilities, and agent-based assistance. Now with multi-model support and MCP integration.",
-          "isNew": true,
+          "description": "Recently acquired by Anthropic—and this acquisition feels significant in ways I'm still processing—Bun is one of those executors that has been moving toward something incredibly fast, almost impossibly fast. It has definitely been something I've been using to replace many of my old projects, a migration that feels less like choice and more like necessity, the kind of technical evolution that makes previous approaches feel suddenly, inexplicably obsolete.",
+          "isNew": false,
           "movement": "moved_in",
-          "links": [
-            "https://github.com/features/copilot",
-            "https://docs.github.com/copilot"
-          ],
-          "tags": ["ai", "code-assistant", "productivity", "mcp"]
-        },
-        {
-          "id": "blip-arc-browser",
-          "name": "Arc",
-          "quadrant": "Tools",
-          "ring": "Trial",
-          "description": "Professional browser with innovative features like auto-closing tabs, split view, and Air Traffic control. Best-in-class for productivity despite uncertain future updates.",
-          "isNew": true,
-          "movement": "moved_in",
-          "links": [
-            "https://arc.net",
-            "https://arc.net/download"
-          ],
-          "tags": ["browser", "productivity", "workspace-management"]
+          "previousRing": "Assess",
+          "links": ["https://bun.sh", "https://bun.sh/docs"],
+          "tags": ["runtime", "javascript", "performance", "tooling"]
         },
         {
           "id": "blip-dia-browser",
           "name": "Dia",
           "quadrant": "Tools",
-          "ring": "Trial",
-          "description": "AI-native browser from Arc creators that chats with your tabs. Context tab feature enables faster, more efficient workflows than competing approaches.",
-          "isNew": true,
-          "movement": "moved_in",
-          "links": [
-            "https://diabrowser.com",
-            "https://diabrowser.com/download"
-          ],
-          "tags": ["ai", "browser", "context-aware", "productivity"]
+          "ring": "Assess",
+          "description": "A browser I have been trying—genuinely trying, with real effort—to use, but I haven't been successful, cannot escape how good Arc Browser is in comparison, how Arc has shaped my expectations of what browsing should feel like. Still, once they migrate all functionality from Arc to Dia (and surely they will, eventually, perhaps inevitably), I probably will switch, but not at the moment, not yet, not while Arc remains what it is.",
+          "isNew": false,
+          "movement": "moved_out",
+          "previousRing": "Trial",
+          "links": ["https://diabrowser.com"],
+          "tags": ["browser", "ai", "productivity"]
         },
         {
           "id": "blip-chatgpt-atlas",
           "name": "ChatGPT Atlas",
           "quadrant": "Tools",
           "ring": "Assess",
-          "description": "GPT-native browsing with authenticated page access. Connects apps like Trello with Excel or Gmail without integrations, though currently slower than Dia's context tab approach.",
-          "isNew": true,
-          "movement": "moved_in",
-          "links": [
-            "https://openai.com/chatgpt",
-            "https://chatgpt.com"
-          ],
+          "description": "The path I was hoping every browser would follow—exactly what I was thinking in terms of browsing, the sort of thing I have been discussing, sometimes arguing, occasionally banging my head against walls with colleagues about for months now. The problem, the persistent problem, is that it's still incredibly slow, and I think there's space—real, substantial space—for someone else to come in and do this properly. Not a replacement for my browser experience but definitely valuable for specific workflows.",
+          "isNew": false,
+          "movement": "no_change",
+          "links": ["https://openai.com/chatgpt", "https://chatgpt.com"],
           "tags": ["ai", "browsing", "authentication", "integration"]
         },
         {
-          "id": "blip-mcp-servers",
-          "name": "Model Context Protocol",
-          "quadrant": "Techniques",
-          "ring": "Adopt",
-          "description": "Open standard for connecting AI applications to data sources and tools. The OpenAPI equivalent for agentic work—easy to implement with widespread adoption.",
+          "id": "blip-claude-chrome",
+          "name": "Claude for Chrome",
+          "quadrant": "Tools",
+          "ring": "Trial",
+          "description": "Without doubt—and I use this phrase deliberately because I have no doubts whatsoever—probably the best experience of an agentic browser that exists right now. Incredibly fast, doing everything you expect it to do and then some. My use has been limited so far, I haven't yet integrated MCPs or connected it with Claude Code, but I can see it integrating with many of the other things I've been doing, becoming part of an incredibly powerful workflow. I'm envious, genuinely envious, of how this came out and we didn't produce something like this before.",
           "isNew": true,
           "movement": "moved_in",
+          "links": ["https://chrome.google.com/webstore"],
+          "tags": ["browser-extension", "ai", "agent", "productivity", "chrome"]
+        },
+        {
+          "id": "blip-github-copilot",
+          "name": "GitHub Copilot",
+          "quadrant": "Tools",
+          "ring": "Trial",
+          "description": "Another coding agent similar to Claude Code—I have been using it for months, and it's been good overall, though 'good overall' is perhaps damning with faint praise. More specifically focused on development than Claude Code, which may be limitation or feature depending on your needs. I complain, perhaps too much, about the default prompts—I don't like the planning prompt at all and have to define my own. It has been falling behind in features: skills isn't there, agents isn't there, capabilities still coming. I'm definitely switching from Copilot to Claude Code, a migration that feels less like abandonment and more like natural progression.",
+          "isNew": false,
+          "movement": "moved_out",
+          "previousRing": "Adopt",
           "links": [
-            "https://modelcontextprotocol.io",
-            "https://modelcontextprotocol.io/specification"
+            "https://github.com/features/copilot",
+            "https://docs.github.com/copilot"
           ],
-          "tags": ["ai", "standards", "interoperability", "agents"]
-        }
-      ]
-    },
-    {
-      "id": "2025-04",
-      "version": "Vol 0 (2025 Apr)",
-      "releaseDate": "2025-04-01T00:00:00Z",
-      "description": "Initial radar edition establishing our baseline technology landscape.",
-      "blips": [
-        {
-          "id": "blip-nextjs",
-          "name": "Next.js",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Adopt",
-          "description": "Next.js is a React framework for building full-stack web applications with excellent performance and developer experience.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://nextjs.org"],
-          "tags": ["frontend", "react", "ssr"]
-        },
-        {
-          "id": "blip-typescript",
-          "name": "TypeScript",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Adopt",
-          "description": "TypeScript adds static typing to JavaScript, improving code quality and developer productivity.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://www.typescriptlang.org"],
-          "tags": ["language", "javascript"]
-        },
-        {
-          "id": "blip-tailwind",
-          "name": "Tailwind CSS",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Adopt",
-          "description": "A utility-first CSS framework for rapidly building custom user interfaces.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://tailwindcss.com"],
-          "tags": ["css", "styling"]
-        },
-        {
-          "id": "blip-vite",
-          "name": "Vite",
-          "quadrant": "Tools",
-          "ring": "Adopt",
-          "description": "Next generation frontend tooling with fast build times and excellent developer experience.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://vitejs.dev"],
-          "tags": ["build-tool", "frontend"]
-        },
-        {
-          "id": "blip-pnpm",
-          "name": "pnpm",
-          "quadrant": "Tools",
-          "ring": "Adopt",
-          "description": "Fast, disk space efficient package manager for Node.js.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://pnpm.io"],
-          "tags": ["package-manager", "nodejs"]
-        },
-        {
-          "id": "blip-vercel",
-          "name": "Vercel",
-          "quadrant": "Platforms",
-          "ring": "Adopt",
-          "description": "Platform for frontend frameworks and static sites, built to integrate with headless CMS, databases, and more.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://vercel.com"],
-          "tags": ["hosting", "deployment"]
-        },
-        {
-          "id": "blip-github-actions",
-          "name": "GitHub Actions",
-          "quadrant": "Platforms",
-          "ring": "Adopt",
-          "description": "Automate, customize, and execute software development workflows right in your repository.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://github.com/features/actions"],
-          "tags": ["ci-cd", "automation"]
-        },
-        {
-          "id": "blip-static-site-generation",
-          "name": "Static Site Generation",
-          "quadrant": "Techniques",
-          "ring": "Adopt",
-          "description": "Pre-rendering pages at build time for better performance and SEO.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": [],
-          "tags": ["architecture", "performance"]
-        },
-        {
-          "id": "blip-component-driven-development",
-          "name": "Component-Driven Development",
-          "quadrant": "Techniques",
-          "ring": "Adopt",
-          "description": "Building UIs from the bottom up starting with components and ending with pages.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": [],
-          "tags": ["architecture", "frontend"]
-        },
-        {
-          "id": "blip-design-systems",
-          "name": "Design Systems",
-          "quadrant": "Techniques",
-          "ring": "Assess",
-          "description": "A collection of reusable components, guided by clear standards, that can be assembled together to build any number of applications.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": [],
-          "tags": ["ui", "design"]
-        },
-        {
-          "id": "blip-web-components",
-          "name": "Web Components",
-          "quadrant": "Techniques",
-          "ring": "Assess",
-          "description": "Suite of different technologies allowing you to create reusable custom elements.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": [],
-          "tags": ["web-standards", "components"]
-        },
-        {
-          "id": "blip-jquery",
-          "name": "jQuery",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Assess",
-          "description": "Legacy JavaScript library. Modern alternatives are recommended for new projects.",
-          "isNew": false,
-          "movement": "no_change",
-          "links": ["https://jquery.com"],
-          "tags": ["javascript", "legacy"]
+          "tags": ["ai", "code-assistant", "productivity"]
         }
       ]
     }

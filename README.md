@@ -14,13 +14,13 @@ A static technology radar website built with Next.js, TypeScript, and Chart.js t
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 with App Router
+- **Framework**: Next.js 16 with App Router (Turbopack)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **UI Components**: shadcn/ui (Zinc theme)
 - **Charts**: Chart.js with react-chartjs-2
 - **Validation**: Zod
-- **Package Manager**: pnpm
+- **Package Manager**: Bun
 - **Deployment**: Vercel (or any static hosting)
 
 ## Configuration
@@ -75,30 +75,32 @@ radar-2025/
 
 ### Prerequisites
 
-- Node.js 18+ 
-- pnpm
+- Node.js 18+ or Bun 1.0+
 
 ### Installation
 
 1. Install dependencies:
 ```bash
-pnpm install
+bun install
 ```
 
-2. Approve build scripts (required for Tailwind CSS):
+2. Run the development server:
 ```bash
-pnpm approve-builds
-# Select all packages and approve
+bun dev
 ```
 
-3. Run the development server:
-```bash
-pnpm dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 **Note**: In development mode with static export enabled, you may need to build first to see changes properly.
+
+### Preview Production Build
+
+```bash
+bun run build     # Build the static site
+bun run serve     # Serve the built site locally
+```
+
+**Next.js 16 Note**: `next start` no longer works with static exports. Use `bun run serve` to preview the production build.
 
 ## Data Format
 
@@ -174,7 +176,7 @@ The radar data is stored in `data/radar.json` and follows this structure:
 ## Building for Production
 
 ```bash
-pnpm build
+bun run build
 ```
 
 This generates a static site in the `out/` directory.
@@ -216,7 +218,7 @@ To use a custom domain:
 2. Update `.github/workflows/deploy.yml` and remove the `NEXT_PUBLIC_BASE_PATH` variable:
    ```yaml
    - name: Build with Next.js
-     run: pnpm build
+     run: bun run build
      # Remove: env: NEXT_PUBLIC_BASE_PATH: /radar
    ```
 
@@ -227,7 +229,7 @@ To use a custom domain:
 To deploy manually:
 
 ```bash
-pnpm build
+bun run build
 # Upload the out/ directory to your hosting provider
 ```
 
@@ -254,7 +256,7 @@ You can deploy the `out/` directory to any static hosting service:
 
 1. Edit `data/radar.json`
 2. Add new editions or update existing blips
-3. Rebuild the site: `pnpm build`
+3. Rebuild the site: `bun run build`
 4. Deploy the updated `out/` directory
 
 The build process will validate your JSON data using Zod schemas and fail if there are any errors.

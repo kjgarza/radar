@@ -2,28 +2,27 @@
 
 ## Project Overview
 
-A **fully static Next.js 15 App Router** site (`output: 'export'`) for visualizing technology trends. Built with TypeScript, Zod validation, Chart.js radar charts, and shadcn/ui components.
+A **fully static Next.js 16 App Router** site (`output: 'export'`) for visualizing technology trends. Built with TypeScript, Zod validation, Chart.js radar charts, and shadcn/ui components. Uses Turbopack for fast builds.
 
-**Stack**: Next.js 15 • React 19 • TypeScript • Tailwind CSS 4 • Chart.js • Zod • pnpm
+**Stack**: Next.js 16 • React 19 • TypeScript • Tailwind CSS 4 • Chart.js • Zod • Bun
 
 ### Language & Runtime Versions
 
-- **Node.js**: `v20.19.2` (LTS)
-- **pnpm**: `10.15.0` (enforced via `packageManager` field)
+- **Bun**: `1.1.42+` (enforced via `packageManager` field)
 - **TypeScript**: `^5` with strict mode enabled
-- **React**: `19.1.0` (stable)
-- **Next.js**: `15.5.4` (App Router with static export)
+- **React**: `19.2.3` (stable)
+- **Next.js**: `16.1.1` (App Router with static export, Turbopack)
 
 ### Toolchain & Dependencies
 
 **Core:**
-- `next@15.5.4` - Framework with static export
-- `react@19.1.0` & `react-dom@19.1.0` - UI library
+- `next@16.1.1` - Framework with static export (Turbopack enabled)
+- `react@19.2.3` & `react-dom@19.2.3` - UI library
 - `typescript@^5` - Type safety
-- `zod@^4.1.12` - Runtime validation & type generation
+- `zod@^4` - Runtime validation & type generation
 
 **UI & Styling:**
-- `tailwindcss@^4` - Utility-first CSS (requires `pnpm approve-builds`)
+- `tailwindcss@^4` - Utility-first CSS
 - `@radix-ui/*` - Headless UI primitives (shadcn/ui foundation)
 - `lucide-react@^0.545.0` - Icon library
 - `chart.js@^4.5.0` + `react-chartjs-2@^5.3.0` - Radar visualization
@@ -83,26 +82,23 @@ features/edition/   → feature-scoped composites (EditionView)
 #### Initial Setup
 ```bash
 # 1. Install dependencies
-pnpm install
+bun install
 
-# 2. Approve Tailwind CSS build scripts (REQUIRED)
-pnpm approve-builds
-# → Interactive prompt: Select all packages and approve
-# → Without this, builds will fail with permission errors
-
-# 3. Verify setup
-pnpm build
+# 2. Verify setup
+bun run build
 ```
+
+**Note**: Unlike pnpm, Bun doesn't require approving build scripts for Tailwind CSS.
 
 #### Development
 ```bash
-pnpm dev               # Start dev server at http://localhost:3000
-                       # Note: May need `pnpm build` first due to static export
+bun dev                # Start dev server at http://localhost:3000
+                       # Note: May need `bun run build` first due to static export
 ```
 
 #### Build (Production)
 ```bash
-pnpm build             # 1. Validates data/radar.json with Zod
+bun run build          # 1. Validates data/radar.json with Zod
                        # 2. Generates static pages via generateStaticParams()
                        # 3. Outputs to out/ directory
                        # 4. Build FAILS if JSON schema invalid (intentional)
@@ -110,8 +106,10 @@ pnpm build             # 1. Validates data/radar.json with Zod
 
 #### Preview Production Build
 ```bash
-pnpm build && pnpm start   # Serves static files from out/
+bun run build && bun run serve   # Serves static files from out/
 ```
+
+**Note**: Next.js 16 removed `next start` support for static exports. Use `bun run serve` instead.
 
 ### CI/CD Pipeline
 
@@ -119,10 +117,9 @@ pnpm build && pnpm start   # Serves static files from out/
 
 **Workflow**: `.github/workflows/deploy.yml`
 - Triggers on push to `main` branch
-- Uses pnpm 10.15.0 and Node.js 20.19.2
+- Uses Bun for fast dependency installation and builds
 - Builds with `NEXT_PUBLIC_BASE_PATH=/radar` for GitHub Pages
 - Deploys `out/` directory to GitHub Pages
-- See `DEPLOYMENT.md` for detailed setup guide
 
 ### Code Quality & Security Rules
 
@@ -178,7 +175,7 @@ pnpm build && pnpm start   # Serves static files from out/
 }
 
 # Validate immediately:
-pnpm build  # Fails with Zod errors if invalid
+bun run build  # Fails with Zod errors if invalid
 ```
 
 ### Static Route Generation
@@ -253,11 +250,10 @@ From `components.json`:
 
 ## Anti-Patterns
 
-❌ **Don't** import `data/radar.json` directly → use `RadarService`  
-❌ **Don't** add runtime data fetching → this is a static site  
-❌ **Don't** use dynamic Next.js features → breaks static export  
+❌ **Don't** import `data/radar.json` directly → use `RadarService`
+❌ **Don't** add runtime data fetching → this is a static site
+❌ **Don't** use dynamic Next.js features → breaks static export
 ❌ **Don't** modify Zod schemas without updating all JSON data  
-❌ **Don't** skip `pnpm approve-builds` after install → Tailwind fails  
 
 ## Key Files to Reference
 
