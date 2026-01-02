@@ -7,8 +7,8 @@ import { FilterSidebar } from '@/components/radar/FilterSidebar';
 import { BlipList } from '@/components/radar/BlipList';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Menu, X } from 'lucide-react';
 import { useMediaQuery } from '@/hooks/use-media-query';
 
 interface EditionViewProps {
@@ -35,6 +35,7 @@ export function EditionView({ edition }: EditionViewProps) {
     search: '',
   });
   const [selectedBlip, setSelectedBlip] = useState<Blip | null>(null);
+  const [isBlipSheetOpen, setIsBlipSheetOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'chart' | 'list'>('chart');
 
   // Initialize mobile with first quadrant selected
@@ -84,6 +85,18 @@ export function EditionView({ edition }: EditionViewProps) {
 
   const handleBlipClick = (blip: Blip) => {
     setSelectedBlip(blip);
+    if (isMobile) {
+      setIsBlipSheetOpen(true);
+    }
+  };
+
+  const handleQuadrantClick = (quadrant: Quadrant) => {
+    if (isMobile) {
+      setFilters((prev) => ({
+        ...prev,
+        quadrants: [quadrant],
+      }));
+    }
   };
 
   return (
@@ -138,9 +151,10 @@ export function EditionView({ edition }: EditionViewProps) {
               {viewMode === 'chart' ? (
                 <Card className="p-6">
                   <RadarChart 
-                    blips={filteredBlips} 
+                    blips={isMobile && filters.quadrants.length === 1 ? filteredBlips : edition.blips} 
                     onBlipClick={handleBlipClick}
                     zoomQuadrant={isMobile && filters.quadrants.length === 1 ? filters.quadrants[0] : undefined}
+                    onQuadrantClick={isMobile ? handleQuadrantClick : undefined}
                   />
                 </Card>
               ) : (
@@ -148,112 +162,35 @@ export function EditionView({ edition }: EditionViewProps) {
               )}
             </div>
 
-            {/* Blip Detail Panel */}
-            <div className="lg:col-span-1">
+            {/* Blip Detail Panel - Desktop only */}
+            <div className="hidden lg:block lg:col-span-1">
               {selectedBlip ? (
                 <Card className="p-6 sticky top-6">
                   <h3 className="text-xl font-bold mb-4">{selectedBlip.name}</h3>
-                  <div className="space-y-4">
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground mb-1">
-                        Ring
-                      </p>
-                      <p className="text-sm">{selectedBlip.ring}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground mb-1">
-                        Quadrant
-                      </p>
-                      <p className="text-sm">{selectedBlip.quadrant}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground mb-1">
-                        Description
-                      </p>
-                      <p className="text-sm">{selectedBlip.description}</p>
-                    </div>
-                    {selectedBlip.movement !== 'no_change' && (
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground mb-1">
-                          Movement
-                        </p>
-                        <p className="text-sm capitalize">
-                          {selectedBlip.movement.replace('_', ' ')}
-                          {selectedBlip.previousRing &&
-                            ` from ${selectedBlip.previousRing}`}
-                        </p>
-                      </div>
-                    )}
-                    {selectedBlip.tags.length > 0 && (
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground mb-1">
-                          Tags
-                        </p>
-                        <div className="flex flex-wrap gap-1">
-                          {selectedBlip.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs bg-muted text-foreground px-2 py-1 rounded border"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    {selectedBlip.caseStudyUrl && (
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground mb-1">
-                          Case Study
-                        </p>
-                        <a
-                          href={selectedBlip.caseStudyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary hover:underline inline-flex items-center gap-1"
-                        >
-                          View Case Study
-                          <span aria-hidden="true">→</span>
-                        </a>
-                      </div>
-                    )}
-                    {selectedBlip.thoughtworksUrl && (
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground mb-1">
-                          ThoughtWorks Radar
-                        </p>
-                        <a
-                          href={selectedBlip.thoughtworksUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-sm text-primary hover:underline inline-flex items-center gap-1"
-                        >
-                          View on ThoughtWorks
-                          <span aria-hidden="true">→</span>
-                        </a>
-                      </div>
-                    )}
-                    {selectedBlip.links.length > 0 && (
-                      <div>
-                        <p className="text-sm font-medium text-muted-foreground mb-1">
-                          Links
-                        </p>
-                        <div className="space-y-1">
-                          {selectedBlip.links.map((link, index) => (
-                            <a
-                              key={index}
-                              href={link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sm text-primary hover:underline block break-all"
-                            >
-                              {link}
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
+                  <BlipDetailContent blip={selectedBlip} />
+                </Card>
+              ) : (
+                <Card className="p-6 text-center text-muted-foreground">
+                  <p>Click on a blip to see details</p>
+                </Card>
+              )}
+            </div>
+
+            {/* Mobile Blip Detail - shown as card below chart */}
+            <div className="lg:hidden">
+              {selectedBlip ? (
+                <Card className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xl font-bold">{selectedBlip.name}</h3>
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      onClick={() => setSelectedBlip(null)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
                   </div>
+                  <BlipDetailContent blip={selectedBlip} />
                 </Card>
               ) : (
                 <Card className="p-6 text-center text-muted-foreground">
@@ -264,6 +201,96 @@ export function EditionView({ edition }: EditionViewProps) {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+// Extracted blip detail content component
+function BlipDetailContent({ blip }: { blip: Blip }) {
+  return (
+    <div className="space-y-4">
+      <div>
+        <p className="text-sm font-medium text-muted-foreground mb-1">Ring</p>
+        <p className="text-sm">{blip.ring}</p>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-muted-foreground mb-1">Quadrant</p>
+        <p className="text-sm">{blip.quadrant}</p>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-muted-foreground mb-1">Description</p>
+        <p className="text-sm">{blip.description}</p>
+      </div>
+      {blip.movement !== 'no_change' && (
+        <div>
+          <p className="text-sm font-medium text-muted-foreground mb-1">Movement</p>
+          <p className="text-sm capitalize">
+            {blip.movement.replace('_', ' ')}
+            {blip.previousRing && ` from ${blip.previousRing}`}
+          </p>
+        </div>
+      )}
+      {blip.tags.length > 0 && (
+        <div>
+          <p className="text-sm font-medium text-muted-foreground mb-1">Tags</p>
+          <div className="flex flex-wrap gap-1">
+            {blip.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs bg-muted text-foreground px-2 py-1 rounded border"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+      {blip.caseStudyUrl && (
+        <div>
+          <p className="text-sm font-medium text-muted-foreground mb-1">Case Study</p>
+          <a
+            href={blip.caseStudyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-primary hover:underline inline-flex items-center gap-1"
+          >
+            View Case Study
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      )}
+      {blip.thoughtworksUrl && (
+        <div>
+          <p className="text-sm font-medium text-muted-foreground mb-1">ThoughtWorks Radar</p>
+          <a
+            href={blip.thoughtworksUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm text-primary hover:underline inline-flex items-center gap-1"
+          >
+            View on ThoughtWorks
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      )}
+      {blip.links.length > 0 && (
+        <div>
+          <p className="text-sm font-medium text-muted-foreground mb-1">Links</p>
+          <div className="space-y-1">
+            {blip.links.map((link, index) => (
+              <a
+                key={index}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-primary hover:underline block break-all"
+              >
+                {link}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -19,6 +19,7 @@ interface RadarChartProps {
   blips: Blip[];
   onBlipClick?: (blip: Blip) => void;
   zoomQuadrant?: Quadrant;
+  onQuadrantClick?: (quadrant: Quadrant) => void;
 }
 
 const RINGS: Ring[] = ['Adopt', 'Trial', 'Assess', 'Hold'];
@@ -43,7 +44,7 @@ const QUADRANT_COLORS = {
   'Techniques': 'rgba(168, 85, 247, 0.8)', // purple-500
 };
 
-export function RadarChart({ blips, onBlipClick, zoomQuadrant }: RadarChartProps) {
+export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }: RadarChartProps) {
   const chartData = useMemo(() => {
     const datasets = QUADRANTS.map((quadrant, qIndex) => {
       const quadrantBlips = blips.filter((b) => b.quadrant === quadrant);
@@ -178,13 +179,72 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant }: RadarChartProps
     },
   };
 
+  // Calculate SVG viewBox to match zoom bounds
+  const svgViewBox = useMemo(() => {
+    // Convert chart bounds (-1.1 to 1.1) to SVG coordinates (-110 to 110)
+    const scale = 100;
+    const x = zoomBounds.xMin * scale;
+    const y = -zoomBounds.yMax * scale; // SVG y is inverted
+    const width = (zoomBounds.xMax - zoomBounds.xMin) * scale;
+    const height = (zoomBounds.yMax - zoomBounds.yMin) * scale;
+    return `${x} ${y} ${width} ${height}`;
+  }, [zoomBounds]);
+
+  // Get the short label for a quadrant
+  const getQuadrantLabel = (quadrant: Quadrant): string => {
+    const labels: Record<Quadrant, string> = {
+      'Languages & Frameworks': 'Frameworks',
+      'Tools': 'Tools',
+      'Platforms': 'Platforms',
+      'Techniques': 'Techniques',
+    };
+    return labels[quadrant];
+  };
+
+  // Quadrant label positions and styling
+  const quadrantLabels = useMemo(() => {
+    const isZoomed = Boolean(zoomQuadrant);
+    const labelFontSize = isZoomed ? 8 : 4.5;
+    
+    return [
+      { 
+        quadrant: 'Languages & Frameworks' as Quadrant, 
+        x: isZoomed && zoomQuadrant === 'Languages & Frameworks' ? 50 : 70, 
+        y: isZoomed && zoomQuadrant === 'Languages & Frameworks' ? -85 : -90, 
+        color: 'rgba(59, 130, 246, 1)', 
+        fontSize: labelFontSize 
+      },
+      { 
+        quadrant: 'Techniques' as Quadrant, 
+        x: isZoomed && zoomQuadrant === 'Techniques' ? 50 : 70, 
+        y: isZoomed && zoomQuadrant === 'Techniques' ? 95 : 95, 
+        color: 'rgba(168, 85, 247, 1)', 
+        fontSize: labelFontSize 
+      },
+      { 
+        quadrant: 'Platforms' as Quadrant, 
+        x: isZoomed && zoomQuadrant === 'Platforms' ? -50 : -70, 
+        y: isZoomed && zoomQuadrant === 'Platforms' ? 95 : 95, 
+        color: 'rgba(249, 115, 22, 1)', 
+        fontSize: labelFontSize 
+      },
+      { 
+        quadrant: 'Tools' as Quadrant, 
+        x: isZoomed && zoomQuadrant === 'Tools' ? -50 : -70, 
+        y: isZoomed && zoomQuadrant === 'Tools' ? -85 : -90, 
+        color: 'rgba(34, 197, 94, 1)', 
+        fontSize: labelFontSize 
+      },
+    ];
+  }, [zoomQuadrant]);
+
   return (
     <div className="relative w-full max-w-4xl mx-auto">
       {/* Ring labels */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <svg className="w-full h-full" viewBox="-110 -110 220 220">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <svg className="w-full h-full" viewBox={svgViewBox}>
           {/* Draw rings */}
-          {RINGS.map((ring, index) => {
+          {RINGS.map((ring) => {
             const radius = RING_RADIUS[ring] * 100;
             return (
               <g key={ring}>
@@ -203,7 +263,7 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant }: RadarChartProps
                   y={-radius + 3}
                   textAnchor="middle"
                   className="text-xs fill-gray-600"
-                  fontSize="2.5"
+                  fontSize={zoomQuadrant ? 5 : 2.5}
                 >
                   {ring}
                 </text>
@@ -215,19 +275,22 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant }: RadarChartProps
           <line x1="-110" y1="0" x2="110" y2="0" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" opacity="0.3" />
           <line x1="0" y1="-110" x2="0" y2="110" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" opacity="0.3" />
           
-          {/* Quadrant labels */}
-          <text x="70" y="-90" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5" fill="rgba(59, 130, 246, 1)">
-            Frameworks
-          </text>
-          <text x="70" y="95" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5" fill="rgba(168, 85, 247, 1)">
-            Techniques
-          </text>
-          <text x="-70" y="95" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5" fill="rgba(249, 115, 22, 1)">
-            Platforms
-          </text>
-          <text x="-70" y="-90" textAnchor="middle" className="text-sm font-semibold" fontSize="4.5"  fill="rgba(34, 197, 94, 1)">
-            Tools
-          </text>
+          {/* Quadrant labels - clickable when onQuadrantClick is provided */}
+          {quadrantLabels.map(({ quadrant, x, y, color, fontSize }) => (
+            <text
+              key={quadrant}
+              x={x}
+              y={y}
+              textAnchor="middle"
+              className={`text-sm font-semibold ${onQuadrantClick ? 'cursor-pointer hover:opacity-80' : ''}`}
+              fontSize={fontSize}
+              fill={color}
+              style={{ pointerEvents: onQuadrantClick ? 'auto' : 'none' }}
+              onClick={() => onQuadrantClick?.(quadrant)}
+            >
+              {getQuadrantLabel(quadrant)}
+            </text>
+          ))}
         </svg>
       </div>
       
