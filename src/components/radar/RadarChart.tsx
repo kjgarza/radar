@@ -88,6 +88,15 @@ const JITTER_MODULO_BASE = 100;
 const BLIP_LABEL_FONT = 'bold 11px sans-serif';
 const BLIP_LABEL_COLOR = '#ffffff';
 
+/**
+ * Generate a deterministic pseudo-random value between -0.5 and 0.5
+ * based on an index and seed value. This ensures consistent positioning
+ * across renders while providing good distribution.
+ */
+function getPseudoRandomValue(index: number, seed: number): number {
+  return ((index * seed) % JITTER_MODULO_BASE) / JITTER_MODULO_BASE - 0.5;
+}
+
 export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
   const chartData = useMemo(() => {
     const datasets = QUADRANTS.map((quadrant, qIndex) => {
@@ -105,11 +114,11 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         // Better angular distribution with pseudo-random spread based on index
         const baseAngleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.7;
         // Use index-based pseudo-random for consistent positioning
-        const angleJitter = (((index * ANGLE_JITTER_SEED) % JITTER_MODULO_BASE) / JITTER_MODULO_BASE - 0.5) * angleSpread * 0.2;
+        const angleJitter = getPseudoRandomValue(index, ANGLE_JITTER_SEED) * angleSpread * 0.2;
         const angle = startAngle + baseAngleOffset + angleSpread * 0.15 + angleJitter;
         
         // Deterministic radial jitter for better ring distribution
-        const radiusJitter = (((index * RADIUS_JITTER_SEED) % JITTER_MODULO_BASE) / JITTER_MODULO_BASE - 0.5) * 0.15;
+        const radiusJitter = getPseudoRandomValue(index, RADIUS_JITTER_SEED) * 0.15;
         const radius = ringRadius - 0.12 + radiusJitter;
         
         const x = Math.cos(angle) * radius;
