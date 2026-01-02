@@ -10,10 +10,47 @@ import {
   Legend,
   ChartOptions,
   TooltipItem,
+  Plugin,
 } from 'chart.js';
 import { Blip, Quadrant, Ring } from '@/core/types';
 
-ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
+// Custom plugin to render first letter labels on blip dots
+const blipLabelPlugin: Plugin<'scatter'> = {
+  id: 'blipLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx, chartArea } = chart;
+    if (!chartArea) return;
+
+    chart.data.datasets.forEach((dataset, datasetIndex) => {
+      const meta = chart.getDatasetMeta(datasetIndex);
+      
+      meta.data.forEach((point, index) => {
+        const dataPoint = dataset.data[index] as { x: number; y: number; blip: Blip };
+        if (!dataPoint.blip || !dataPoint.blip.name) return;
+
+        const { x, y } = (point as any).getCenterPoint();
+        const firstLetter = dataPoint.blip.name.charAt(0).toUpperCase();
+
+        ctx.save();
+        ctx.font = BLIP_LABEL_FONT;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // Add text shadow for better contrast and accessibility
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+        ctx.shadowBlur = 3;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        
+        ctx.fillStyle = BLIP_LABEL_COLOR;
+        ctx.fillText(firstLetter, x, y);
+        ctx.restore();
+      });
+    });
+  },
+};
+
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend, blipLabelPlugin);
 
 interface RadarChartProps {
   blips: Blip[];
@@ -44,6 +81,25 @@ const QUADRANT_COLORS = {
   'Techniques': 'rgba(168, 85, 247, 0.8)', // purple-500
 };
 
+// Constants for deterministic pseudo-random positioning
+const ANGLE_JITTER_SEED = 17;
+const RADIUS_JITTER_SEED = 23;
+const JITTER_MODULO_BASE = 100;
+
+// Label styling
+const BLIP_LABEL_FONT = 'bold 11px sans-serif';
+const BLIP_LABEL_COLOR = '#ffffff';
+
+/**
+ * Generate a deterministic pseudo-random value between -0.5 and 0.5
+ * based on an index and seed value. This ensures consistent positioning
+ * across renders while providing good distribution.
+ */
+function getPseudoRandomValue(index: number, seed: number): number {
+  return ((index * seed) % JITTER_MODULO_BASE) / JITTER_MODULO_BASE - 0.5;
+}
+
+
 export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }: RadarChartProps) {
   const chartData = useMemo(() => {
     const datasets = QUADRANTS.map((quadrant, qIndex) => {
@@ -56,13 +112,16 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }
       const data = quadrantBlips.map((blip, index) => {
         const ringRadius = RING_RADIUS[blip.ring];
         
-        // Distribute blips within the quadrant with some randomization
+        // Distribute blips within the quadrant with deterministic pseudo-randomization
         const angleSpread = endAngle - startAngle;
-        const angleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.8;
-        const angle = startAngle + angleOffset + angleSpread * 0.1;
+        // Better angular distribution with pseudo-random spread based on index
+        const baseAngleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.7;
+        // Use index-based pseudo-random for consistent positioning
+        const angleJitter = getPseudoRandomValue(index, ANGLE_JITTER_SEED) * angleSpread * 0.2;
+        const angle = startAngle + baseAngleOffset + angleSpread * 0.15 + angleJitter;
         
-        // Add some random jitter to radius within the ring
-        const radiusJitter = (Math.random() - 0.5) * 0.05;
+        // Deterministic radial jitter for better ring distribution
+        const radiusJitter = getPseudoRandomValue(index, RADIUS_JITTER_SEED) * 0.15;
         const radius = ringRadius - 0.12 + radiusJitter;
         
         const x = Math.cos(angle) * radius;
@@ -79,10 +138,10 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }
         label: quadrant,
         data,
         backgroundColor: QUADRANT_COLORS[quadrant],
-        borderColor: QUADRANT_COLORS[quadrant].replace('0.7', '1'),
+        borderColor: QUADRANT_COLORS[quadrant].replace(/[\d.]+\)$/, '1)'), // Replace opacity with 1
         borderWidth: 2,
-        pointRadius: 6,
-        pointHoverRadius: 8,
+        pointRadius: 11,
+        pointHoverRadius: 13,
       };
     });
 
