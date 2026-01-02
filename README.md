@@ -41,7 +41,7 @@ export const siteConfig = {
     figma: "https://figma.com/@yourusername",
   },
   links: {
-    github: "https://github.com/yourusername/radar-2025",
+    github: "https://github.com/yourusername/radar",
   },
 };
 ```
@@ -49,7 +49,7 @@ export const siteConfig = {
 ## Project Structure
 
 ```
-radar-2025/
+radar/
 ├── data/
 │   └── radar.json           # Radar data (editions and blips)
 ├── src/
