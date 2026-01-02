@@ -87,7 +87,7 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         // Distribute blips within the quadrant with improved randomization
         const angleSpread = endAngle - startAngle;
         // Better angular distribution with more randomness
-        const baseAngleOffset = (index / Math.max(quadrantBlips.length, 1)) * angleSpread * 0.7;
+        const baseAngleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.7;
         const angleJitter = (Math.random() - 0.5) * angleSpread * 0.2;
         const angle = startAngle + baseAngleOffset + angleSpread * 0.15 + angleJitter;
         
@@ -109,7 +109,7 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         label: quadrant,
         data,
         backgroundColor: QUADRANT_COLORS[quadrant],
-        borderColor: QUADRANT_COLORS[quadrant].replace('0.7', '1'),
+        borderColor: QUADRANT_COLORS[quadrant].replace('0.8', '1'),
         borderWidth: 2,
         pointRadius: 11,
         pointHoverRadius: 13,
