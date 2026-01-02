@@ -32,8 +32,8 @@ const blipLabelPlugin: Plugin<'scatter'> = {
         const firstLetter = dataPoint.blip.name.charAt(0).toUpperCase();
 
         ctx.save();
-        ctx.font = 'bold 11px sans-serif';
-        ctx.fillStyle = '#ffffff';
+        ctx.font = BLIP_LABEL_FONT;
+        ctx.fillStyle = BLIP_LABEL_COLOR;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(firstLetter, x, y);
@@ -72,6 +72,14 @@ const QUADRANT_COLORS = {
   'Techniques': 'rgba(168, 85, 247, 0.8)', // purple-500
 };
 
+// Constants for deterministic pseudo-random positioning
+const ANGLE_JITTER_SEED = 17;
+const RADIUS_JITTER_SEED = 23;
+
+// Label styling
+const BLIP_LABEL_FONT = 'bold 11px sans-serif';
+const BLIP_LABEL_COLOR = '#ffffff';
+
 export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
   const chartData = useMemo(() => {
     const datasets = QUADRANTS.map((quadrant, qIndex) => {
@@ -89,11 +97,11 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         // Better angular distribution with pseudo-random spread based on index
         const baseAngleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.7;
         // Use index-based pseudo-random for consistent positioning
-        const angleJitter = (((index * 17) % 100) / 100 - 0.5) * angleSpread * 0.2;
+        const angleJitter = (((index * ANGLE_JITTER_SEED) % 100) / 100 - 0.5) * angleSpread * 0.2;
         const angle = startAngle + baseAngleOffset + angleSpread * 0.15 + angleJitter;
         
         // Deterministic radial jitter for better ring distribution
-        const radiusJitter = (((index * 23) % 100) / 100 - 0.5) * 0.15;
+        const radiusJitter = (((index * RADIUS_JITTER_SEED) % 100) / 100 - 0.5) * 0.15;
         const radius = ringRadius - 0.12 + radiusJitter;
         
         const x = Math.cos(angle) * radius;
@@ -110,7 +118,7 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         label: quadrant,
         data,
         backgroundColor: QUADRANT_COLORS[quadrant],
-        borderColor: QUADRANT_COLORS[quadrant].replace('0.8', '1'),
+        borderColor: QUADRANT_COLORS[quadrant].replace(/[\d.]+\)$/, '1)'), // Replace opacity with 1
         borderWidth: 2,
         pointRadius: 11,
         pointHoverRadius: 13,
