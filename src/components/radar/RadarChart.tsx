@@ -18,6 +18,7 @@ ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
 interface RadarChartProps {
   blips: Blip[];
   onBlipClick?: (blip: Blip) => void;
+  zoomQuadrant?: Quadrant;
 }
 
 const RINGS: Ring[] = ['Adopt', 'Trial', 'Assess', 'Hold'];
@@ -42,7 +43,7 @@ const QUADRANT_COLORS = {
   'Techniques': 'rgba(168, 85, 247, 0.8)', // purple-500
 };
 
-export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
+export function RadarChart({ blips, onBlipClick, zoomQuadrant }: RadarChartProps) {
   const chartData = useMemo(() => {
     const datasets = QUADRANTS.map((quadrant, qIndex) => {
       const quadrantBlips = blips.filter((b) => b.quadrant === quadrant);
@@ -87,14 +88,42 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
     return { datasets };
   }, [blips]);
 
+  // Calculate zoom bounds based on selected quadrant
+  const zoomBounds = useMemo(() => {
+    if (!zoomQuadrant) {
+      return { xMin: -1.1, xMax: 1.1, yMin: -1.1, yMax: 1.1 };
+    }
+
+    const quadrantIndex = QUADRANTS.indexOf(zoomQuadrant);
+    
+    // Map quadrants to their positions:
+    // 0: 'Languages & Frameworks' - top-right (positive x, positive y)
+    // 1: 'Tools' - top-left (negative x, positive y)
+    // 2: 'Platforms' - bottom-left (negative x, negative y)
+    // 3: 'Techniques' - bottom-right (positive x, negative y)
+    
+    switch (quadrantIndex) {
+      case 0: // Languages & Frameworks (top-right)
+        return { xMin: -0.2, xMax: 1.1, yMin: -0.2, yMax: 1.1 };
+      case 1: // Tools (top-left)
+        return { xMin: -1.1, xMax: 0.2, yMin: -0.2, yMax: 1.1 };
+      case 2: // Platforms (bottom-left)
+        return { xMin: -1.1, xMax: 0.2, yMin: -1.1, yMax: 0.2 };
+      case 3: // Techniques (bottom-right)
+        return { xMin: -0.2, xMax: 1.1, yMin: -1.1, yMax: 0.2 };
+      default:
+        return { xMin: -1.1, xMax: 1.1, yMin: -1.1, yMax: 1.1 };
+    }
+  }, [zoomQuadrant]);
+
   const options: ChartOptions<'scatter'> = {
     responsive: true,
     maintainAspectRatio: true,
     aspectRatio: 1,
     scales: {
       x: {
-        min: -1.1,
-        max: 1.1,
+        min: zoomBounds.xMin,
+        max: zoomBounds.xMax,
         grid: {
           display: false,
         },
@@ -106,8 +135,8 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         },
       },
       y: {
-        min: -1.1,
-        max: 1.1,
+        min: zoomBounds.yMin,
+        max: zoomBounds.yMax,
         grid: {
           display: false,
         },

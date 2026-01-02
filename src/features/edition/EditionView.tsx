@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Edition, Blip, Ring, Quadrant } from '@/core/types';
 import { RadarChart } from '@/components/radar/RadarChart';
 import { FilterSidebar } from '@/components/radar/FilterSidebar';
@@ -9,12 +9,22 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
+import { useMediaQuery } from '@/hooks/use-media-query';
 
 interface EditionViewProps {
   edition: Edition;
 }
 
+const QUADRANTS: Quadrant[] = [
+  'Languages & Frameworks',
+  'Tools',
+  'Platforms',
+  'Techniques',
+];
+
 export function EditionView({ edition }: EditionViewProps) {
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+  
   const [filters, setFilters] = useState<{
     rings: Ring[];
     quadrants: Quadrant[];
@@ -26,6 +36,16 @@ export function EditionView({ edition }: EditionViewProps) {
   });
   const [selectedBlip, setSelectedBlip] = useState<Blip | null>(null);
   const [viewMode, setViewMode] = useState<'chart' | 'list'>('chart');
+
+  // Initialize mobile with first quadrant selected
+  useEffect(() => {
+    if (isMobile && filters.quadrants.length === 0) {
+      setFilters((prev) => ({
+        ...prev,
+        quadrants: [QUADRANTS[0]], // 'Languages & Frameworks'
+      }));
+    }
+  }, [isMobile, filters.quadrants.length]);
 
   const filteredBlips = useMemo(() => {
     return edition.blips.filter((blip) => {
@@ -70,7 +90,7 @@ export function EditionView({ edition }: EditionViewProps) {
     <div className="flex min-h-screen w-full">
       {/* Desktop Sidebar */}
       <aside className="hidden lg:block w-80 border-r bg-background">
-        <FilterSidebar onFilterChange={setFilters} edition={edition} />
+        <FilterSidebar onFilterChange={setFilters} edition={edition} isMobile={false} currentFilters={filters} />
       </aside>
 
       {/* Main Content */}
@@ -87,7 +107,7 @@ export function EditionView({ edition }: EditionViewProps) {
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-80 p-0">
-                  <FilterSidebar onFilterChange={setFilters} edition={edition} />
+                  <FilterSidebar onFilterChange={setFilters} edition={edition} isMobile={isMobile} currentFilters={filters} />
                 </SheetContent>
               </Sheet>
               
@@ -117,7 +137,11 @@ export function EditionView({ edition }: EditionViewProps) {
             <div className="lg:col-span-2">
               {viewMode === 'chart' ? (
                 <Card className="p-6">
-                  <RadarChart blips={filteredBlips} onBlipClick={handleBlipClick} />
+                  <RadarChart 
+                    blips={filteredBlips} 
+                    onBlipClick={handleBlipClick}
+                    zoomQuadrant={isMobile && filters.quadrants.length === 1 ? filters.quadrants[0] : undefined}
+                  />
                 </Card>
               ) : (
                 <BlipList blips={filteredBlips} onBlipClick={handleBlipClick} />

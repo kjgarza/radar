@@ -1,10 +1,17 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Edition, Blip, Ring, Quadrant } from '@/core/types';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 interface FilterSidebarProps {
   onFilterChange: (filters: {
@@ -13,6 +20,12 @@ interface FilterSidebarProps {
     search: string;
   }) => void;
   edition: Edition;
+  isMobile?: boolean;
+  currentFilters?: {
+    rings: Ring[];
+    quadrants: Quadrant[];
+    search: string;
+  };
 }
 
 const RINGS: Ring[] = ['Adopt', 'Trial', 'Assess', 'Hold'];
@@ -23,10 +36,19 @@ const QUADRANTS: Quadrant[] = [
   'Techniques',
 ];
 
-export function FilterSidebar({ onFilterChange, edition }: FilterSidebarProps) {
-  const [selectedRings, setSelectedRings] = useState<Ring[]>([]);
-  const [selectedQuadrants, setSelectedQuadrants] = useState<Quadrant[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
+export function FilterSidebar({ onFilterChange, edition, isMobile = false, currentFilters }: FilterSidebarProps) {
+  const [selectedRings, setSelectedRings] = useState<Ring[]>(currentFilters?.rings || []);
+  const [selectedQuadrants, setSelectedQuadrants] = useState<Quadrant[]>(currentFilters?.quadrants || []);
+  const [searchQuery, setSearchQuery] = useState(currentFilters?.search || '');
+
+  // Sync local state with currentFilters prop
+  useEffect(() => {
+    if (currentFilters) {
+      setSelectedRings(currentFilters.rings);
+      setSelectedQuadrants(currentFilters.quadrants);
+      setSearchQuery(currentFilters.search);
+    }
+  }, [currentFilters]);
 
   const handleRingToggle = (ring: Ring) => {
     const newRings = selectedRings.includes(ring)
@@ -48,6 +70,16 @@ export function FilterSidebar({ onFilterChange, edition }: FilterSidebarProps) {
     onFilterChange({
       rings: selectedRings,
       quadrants: newQuadrants,
+      search: searchQuery,
+    });
+  };
+
+  const handleQuadrantSelect = (quadrant: Quadrant) => {
+    // On mobile, only allow single selection
+    setSelectedQuadrants([quadrant]);
+    onFilterChange({
+      rings: selectedRings,
+      quadrants: [quadrant],
       search: searchQuery,
     });
   };
@@ -155,18 +187,36 @@ export function FilterSidebar({ onFilterChange, edition }: FilterSidebarProps) {
       {/* Quadrants Filter */}
       <div className="space-y-2">
         <h3 className="text-sm font-semibold">Quadrants</h3>
-        <div className="flex flex-wrap gap-2">
-          {QUADRANTS.map((quadrant) => (
-            <Badge
-              key={quadrant}
-              variant={selectedQuadrants.includes(quadrant) ? 'default' : 'outline'}
-              className="cursor-pointer text-xs"
-              onClick={() => handleQuadrantToggle(quadrant)}
-            >
-              {quadrant}
-            </Badge>
-          ))}
-        </div>
+        {isMobile ? (
+          <Select
+            value={selectedQuadrants[0] || QUADRANTS[0]}
+            onValueChange={(value) => handleQuadrantSelect(value as Quadrant)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select quadrant" />
+            </SelectTrigger>
+            <SelectContent>
+              {QUADRANTS.map((quadrant) => (
+                <SelectItem key={quadrant} value={quadrant}>
+                  {quadrant}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {QUADRANTS.map((quadrant) => (
+              <Badge
+                key={quadrant}
+                variant={selectedQuadrants.includes(quadrant) ? 'default' : 'outline'}
+                className="cursor-pointer text-xs"
+                onClick={() => handleQuadrantToggle(quadrant)}
+              >
+                {quadrant}
+              </Badge>
+            ))}
+          </div>
+        )}
       </div>
 
       {(selectedRings.length > 0 ||
