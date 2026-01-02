@@ -11,6 +11,11 @@ export function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false);
 
   useEffect(() => {
+    // Check if window is available (client-side only)
+    if (typeof window === 'undefined') {
+      return;
+    }
+
     const media = window.matchMedia(query);
     
     // Set initial value

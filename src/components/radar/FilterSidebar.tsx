@@ -189,7 +189,7 @@ export function FilterSidebar({ onFilterChange, edition, isMobile = false, curre
         <h3 className="text-sm font-semibold">Quadrants</h3>
         {isMobile ? (
           <Select
-            value={selectedQuadrants[0] || QUADRANTS[0]}
+            value={selectedQuadrants[0] || ''}
             onValueChange={(value) => handleQuadrantSelect(value as Quadrant)}
           >
             <SelectTrigger className="w-full">
