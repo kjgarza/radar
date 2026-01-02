@@ -26,7 +26,7 @@ const blipLabelPlugin: Plugin<'scatter'> = {
       
       meta.data.forEach((point, index) => {
         const dataPoint = dataset.data[index] as { x: number; y: number; blip: Blip };
-        if (!dataPoint.blip) return;
+        if (!dataPoint.blip || !dataPoint.blip.name) return;
 
         const { x, y } = point.getCenterPoint();
         const firstLetter = dataPoint.blip.name.charAt(0).toUpperCase();
@@ -84,15 +84,16 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
       const data = quadrantBlips.map((blip, index) => {
         const ringRadius = RING_RADIUS[blip.ring];
         
-        // Distribute blips within the quadrant with improved randomization
+        // Distribute blips within the quadrant with deterministic pseudo-randomization
         const angleSpread = endAngle - startAngle;
-        // Better angular distribution with more randomness
+        // Better angular distribution with pseudo-random spread based on index
         const baseAngleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.7;
-        const angleJitter = (Math.random() - 0.5) * angleSpread * 0.2;
+        // Use index-based pseudo-random for consistent positioning
+        const angleJitter = (((index * 17) % 100) / 100 - 0.5) * angleSpread * 0.2;
         const angle = startAngle + baseAngleOffset + angleSpread * 0.15 + angleJitter;
         
-        // Increased radial jitter for better ring distribution
-        const radiusJitter = (Math.random() - 0.5) * 0.15;
+        // Deterministic radial jitter for better ring distribution
+        const radiusJitter = (((index * 23) % 100) / 100 - 0.5) * 0.15;
         const radius = ringRadius - 0.12 + radiusJitter;
         
         const x = Math.cos(angle) * radius;
