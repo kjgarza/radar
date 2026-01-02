@@ -10,10 +10,40 @@ import {
   Legend,
   ChartOptions,
   TooltipItem,
+  Plugin,
 } from 'chart.js';
 import { Blip, Quadrant, Ring } from '@/core/types';
 
-ChartJS.register(LinearScale, PointElement, Tooltip, Legend);
+// Custom plugin to render first letter labels on blip dots
+const blipLabelPlugin: Plugin<'scatter'> = {
+  id: 'blipLabels',
+  afterDatasetsDraw(chart) {
+    const { ctx, chartArea } = chart;
+    if (!chartArea) return;
+
+    chart.data.datasets.forEach((dataset, datasetIndex) => {
+      const meta = chart.getDatasetMeta(datasetIndex);
+      
+      meta.data.forEach((point, index) => {
+        const dataPoint = dataset.data[index] as { x: number; y: number; blip: Blip };
+        if (!dataPoint.blip) return;
+
+        const { x, y } = point.getCenterPoint();
+        const firstLetter = dataPoint.blip.name.charAt(0).toUpperCase();
+
+        ctx.save();
+        ctx.font = 'bold 11px sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(firstLetter, x, y);
+        ctx.restore();
+      });
+    });
+  },
+};
+
+ChartJS.register(LinearScale, PointElement, Tooltip, Legend, blipLabelPlugin);
 
 interface RadarChartProps {
   blips: Blip[];
@@ -54,13 +84,15 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
       const data = quadrantBlips.map((blip, index) => {
         const ringRadius = RING_RADIUS[blip.ring];
         
-        // Distribute blips within the quadrant with some randomization
+        // Distribute blips within the quadrant with improved randomization
         const angleSpread = endAngle - startAngle;
-        const angleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.8;
-        const angle = startAngle + angleOffset + angleSpread * 0.1;
+        // Better angular distribution with more randomness
+        const baseAngleOffset = (index / Math.max(quadrantBlips.length, 1)) * angleSpread * 0.7;
+        const angleJitter = (Math.random() - 0.5) * angleSpread * 0.2;
+        const angle = startAngle + baseAngleOffset + angleSpread * 0.15 + angleJitter;
         
-        // Add some random jitter to radius within the ring
-        const radiusJitter = (Math.random() - 0.5) * 0.05;
+        // Increased radial jitter for better ring distribution
+        const radiusJitter = (Math.random() - 0.5) * 0.15;
         const radius = ringRadius - 0.12 + radiusJitter;
         
         const x = Math.cos(angle) * radius;
@@ -79,8 +111,8 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         backgroundColor: QUADRANT_COLORS[quadrant],
         borderColor: QUADRANT_COLORS[quadrant].replace('0.7', '1'),
         borderWidth: 2,
-        pointRadius: 6,
-        pointHoverRadius: 8,
+        pointRadius: 11,
+        pointHoverRadius: 13,
       };
     });
 
