@@ -28,7 +28,7 @@ const blipLabelPlugin: Plugin<'scatter'> = {
         const dataPoint = dataset.data[index] as { x: number; y: number; blip: Blip };
         if (!dataPoint.blip || !dataPoint.blip.name) return;
 
-        const { x, y } = point.getCenterPoint();
+        const { x, y } = (point as any).getCenterPoint();
         const firstLetter = dataPoint.blip.name.charAt(0).toUpperCase();
 
         ctx.save();
