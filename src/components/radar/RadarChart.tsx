@@ -33,9 +33,16 @@ const blipLabelPlugin: Plugin<'scatter'> = {
 
         ctx.save();
         ctx.font = BLIP_LABEL_FONT;
-        ctx.fillStyle = BLIP_LABEL_COLOR;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
+        
+        // Add text shadow for better contrast and accessibility
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+        ctx.shadowBlur = 3;
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
+        
+        ctx.fillStyle = BLIP_LABEL_COLOR;
         ctx.fillText(firstLetter, x, y);
         ctx.restore();
       });
@@ -75,6 +82,7 @@ const QUADRANT_COLORS = {
 // Constants for deterministic pseudo-random positioning
 const ANGLE_JITTER_SEED = 17;
 const RADIUS_JITTER_SEED = 23;
+const JITTER_MODULO_BASE = 100;
 
 // Label styling
 const BLIP_LABEL_FONT = 'bold 11px sans-serif';
@@ -97,11 +105,11 @@ export function RadarChart({ blips, onBlipClick }: RadarChartProps) {
         // Better angular distribution with pseudo-random spread based on index
         const baseAngleOffset = (index / Math.max(quadrantBlips.length - 1, 1)) * angleSpread * 0.7;
         // Use index-based pseudo-random for consistent positioning
-        const angleJitter = (((index * ANGLE_JITTER_SEED) % 100) / 100 - 0.5) * angleSpread * 0.2;
+        const angleJitter = (((index * ANGLE_JITTER_SEED) % JITTER_MODULO_BASE) / JITTER_MODULO_BASE - 0.5) * angleSpread * 0.2;
         const angle = startAngle + baseAngleOffset + angleSpread * 0.15 + angleJitter;
         
         // Deterministic radial jitter for better ring distribution
-        const radiusJitter = (((index * RADIUS_JITTER_SEED) % 100) / 100 - 0.5) * 0.15;
+        const radiusJitter = (((index * RADIUS_JITTER_SEED) % JITTER_MODULO_BASE) / JITTER_MODULO_BASE - 0.5) * 0.15;
         const radius = ringRadius - 0.12 + radiusJitter;
         
         const x = Math.cos(angle) * radius;
