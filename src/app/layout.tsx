@@ -38,8 +38,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
+        url: "/og-radar.png",
         height: 630,
         alt: siteConfig.name,
       },
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: ["/og-image.png"],
+    images: ["/og-radar.png"],
     creator: "@kjgarza",
   },
   robots: {
