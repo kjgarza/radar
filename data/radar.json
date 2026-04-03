@@ -253,6 +253,31 @@
           "movement": "moved_in",
           "links": ["https://sst.dev"],
           "tags": ["aws", "infrastructure", "serverless", "lambda", "deployment"]
+        },
+        {
+          "id": "blip-claude-agent-sdk",
+          "name": "Claude Agent SDK",
+          "quadrant": "Languages & Frameworks",
+          "ring": "Adopt",
+          "description": "What the Claude Agent SDK makes possible—and this is the thing I keep coming back to—is that you can now build agents with the same tool execution loop, context management, and subagent architecture that powers Claude Code itself, programmable in Python or TypeScript, without having to implement any of the hard parts yourself. I have been using it to build agents that would previously have required significant scaffolding: you pass a prompt, specify which tools are allowed, and the agent loop runs autonomously—reading files, executing commands, searching codebases, spawning subagents for focused subtasks, and resuming sessions with full context. The fact that it recently got renamed from the Claude Code SDK to the Claude Agent SDK feels like honest clarification rather than rebranding; it was never just about code, and the new name says so.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://docs.anthropic.com/en/docs/claude-code/sdk",
+            "https://github.com/anthropics/claude-agent-sdk-demos"
+          ],
+          "tags": ["ai", "agents", "sdk", "autonomous", "python", "typescript"]
+        },
+        {
+          "id": "blip-claude-plugins",
+          "name": "Claude Code Plugins",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "I have been building and using Claude Code plugins for so many cases now that the technique has become something I reach for almost reflexively—a way of packaging skills, slash commands, MCP server configurations, and specialized agents into installable, composable units that can be shared and reused across projects. My own marketplace has grown to cover scholarly research workflows, senior software development patterns, and product management tooling, among others, and what surprises me each time is how much leverage a well-composed plugin provides—not just for my own workflows but for anyone who installs it. The technique itself is the insight: rather than configuring Claude Code from scratch in each project, you define the capability once, distribute it, and let it accumulate over time.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://github.com/kjgarza/marketplace-claude"],
+          "tags": ["claude-code", "plugins", "skills", "context-engineering", "reusability"]
         }
       ]
     }
