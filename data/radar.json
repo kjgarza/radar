@@ -203,6 +203,58 @@
           "tags": ["ai", "code-assistant", "productivity"]
         }
       ]
+    },
+    {
+      "id": "2026-04",
+      "version": "Vol 2 (2026 Apr)",
+      "releaseDate": "2026-04-01T00:00:00Z",
+      "description": "April 2026 edition covering LLM evaluation tooling, autonomous research loops, lightweight semantic search, and infrastructure deployment.",
+      "blips": [
+        {
+          "id": "blip-autoresearch",
+          "name": "Autoresearch",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "Karpathy's autoresearch represents something I have been thinking about for a while but hadn't seen made so concrete—an AI agent given a real training loop and told to just run experiments, keep what works, discard what doesn't, and report back in the morning. The technique itself is the important thing here, not just the specific repo: you write the program instructions in a Markdown file, you set the metric, and the agent does the iteration. I have been using this approach in conjunction with promptfoo for LLM evaluation work, and together they constitute what feels less like a tooling choice and more like a methodological shift—one I'm not going back from. But autoresearch points further than evals, further than research automation; it points toward a mode of work where the human defines the objective and the constraint, and the agent runs the loop. That era, to borrow Karpathy's own framing, has begun.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://github.com/karpathy/autoresearch"],
+          "tags": ["ai", "autonomous-agents", "llm", "evaluation", "research-automation"]
+        },
+        {
+          "id": "blip-promptfoo",
+          "name": "promptfoo",
+          "quadrant": "Tools",
+          "ring": "Adopt",
+          "description": "I have been reaching for promptfoo whenever I need to test prompts, models, or RAG pipelines—and I find myself reaching for it often, more often than I expected. It runs locally, configures in YAML, and gets out of the way; the friction is low enough that evaluation becomes something you actually do rather than something you intend to do. Used alongside autoresearch it closes a loop: autoresearch runs the experiments autonomously, promptfoo provides the rigorous eval harness to measure whether any of it actually improved. The fact that it's now part of OpenAI feels significant, though I'm still processing what that means for its trajectory.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://www.promptfoo.dev"],
+          "tags": ["llm", "evaluation", "testing", "rag", "ai"]
+        },
+        {
+          "id": "blip-sqlite-with-embeddings",
+          "name": "SQLite with Embeddings",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "For a long time I was reaching for dedicated vector databases whenever a project needed semantic search—Pinecone, Weaviate, the whole ecosystem—and then I started using SQLite with the sqlite-vec extension and something clarified. For small and medium projects, the vector database is almost always overkill; what you need is fast, local, zero-dependency semantic search, and SQLite with embeddings gives you that without the operational overhead of a separate service. I have been adopting this pattern across a handful of projects now and the simplicity of it keeps surprising me—not in a limiting way, but in the way that a good constraint surprises you by making the solution more elegant than you expected.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://github.com/asg017/sqlite-vec"],
+          "tags": ["sqlite", "embeddings", "vector-search", "semantic-search", "lightweight"]
+        },
+        {
+          "id": "blip-sst",
+          "name": "SST",
+          "quadrant": "Platforms",
+          "ring": "Trial",
+          "description": "I have been using SST to deploy infrastructure—it handles the Lambda function setup and the AWS wiring with less ceremony than doing it by hand—but my experience is genuinely incomplete, and I want to be honest about that. The Lambda-first orientation suits some of what I'm doing, but there's a class of architecture questions where I haven't yet had enough time with SST to know whether it would bend the right way or push back. My relationship with it is more exploratory than established; I'm inclined toward it, perhaps, but not yet prepared to recommend it with the confidence I'd want to have.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": ["https://sst.dev"],
+          "tags": ["aws", "infrastructure", "serverless", "lambda", "deployment"]
+        }
+      ]
     }
   ]
 }
