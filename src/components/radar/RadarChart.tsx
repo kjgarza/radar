@@ -299,12 +299,23 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }
 
   return (
     <div className="relative w-full max-w-4xl mx-auto">
+      {/* Radial glow behind the chart */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+        style={{
+          background: 'radial-gradient(ellipse 70% 70% at 50% 50%, oklch(0.60 0.13 39 / 0.07) 0%, transparent 70%)',
+          filter: 'blur(20px)',
+        }}
+      />
+
       {/* Ring labels */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <svg className="w-full h-full" viewBox={svgViewBox}>
-          {/* Draw rings */}
-          {RINGS.map((ring) => {
+          {/* Draw rings with entrance animation */}
+          {RINGS.map((ring, i) => {
             const radius = RING_RADIUS[ring] * 100;
+            const delay = `${0.1 + i * 0.18}s`;
             return (
               <g key={ring}>
                 <circle
@@ -315,7 +326,25 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }
                   stroke="currentColor"
                   strokeWidth="0.5"
                   className="text-gray-300"
-                  opacity="0.3"
+                  style={{
+                    opacity: 0,
+                    animation: `fade-in-dim 0.7s cubic-bezier(0.16,1,0.3,1) ${delay} forwards`,
+                  }}
+                />
+                {/* Glow halo ring */}
+                <circle
+                  cx="0"
+                  cy="0"
+                  r={radius}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  className="text-gray-300"
+                  style={{
+                    opacity: 0,
+                    filter: 'blur(2px)',
+                    animation: `fade-in-dimmer 0.9s cubic-bezier(0.16,1,0.3,1) ${delay} forwards`,
+                  }}
                 />
                 <text
                   x="0"
@@ -323,6 +352,10 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }
                   textAnchor="middle"
                   className="text-xs fill-gray-600"
                   fontSize={zoomQuadrant ? 5 : 2.5}
+                  style={{
+                    opacity: 0,
+                    animation: `fade-up 0.5s ease ${0.6 + i * 0.12}s forwards`,
+                  }}
                 >
                   {ring}
                 </text>
@@ -331,11 +364,21 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }
           })}
           
           {/* Draw quadrant dividers */}
-          <line x1="-110" y1="0" x2="110" y2="0" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" opacity="0.3" />
-          <line x1="0" y1="-110" x2="0" y2="110" stroke="currentColor" strokeWidth="0.5" className="text-gray-300" opacity="0.3" />
+          <line
+            x1="-110" y1="0" x2="110" y2="0"
+            stroke="currentColor" strokeWidth="0.5"
+            className="text-gray-300"
+            style={{ opacity: 0, animation: 'fade-in-dim 0.6s ease 0.85s forwards' }}
+          />
+          <line
+            x1="0" y1="-110" x2="0" y2="110"
+            stroke="currentColor" strokeWidth="0.5"
+            className="text-gray-300"
+            style={{ opacity: 0, animation: 'fade-in-dim 0.6s ease 0.85s forwards' }}
+          />
           
           {/* Quadrant labels - clickable when onQuadrantClick is provided */}
-          {quadrantLabels.map(({ quadrant, x, y, color, fontSize }) => (
+          {quadrantLabels.map(({ quadrant, x, y, color, fontSize }, i) => (
             <text
               key={quadrant}
               x={x}
@@ -344,7 +387,11 @@ export function RadarChart({ blips, onBlipClick, zoomQuadrant, onQuadrantClick }
               className={`text-sm font-semibold ${onQuadrantClick ? 'cursor-pointer hover:opacity-80' : ''}`}
               fontSize={fontSize}
               fill={color}
-              style={{ pointerEvents: onQuadrantClick ? 'auto' : 'none' }}
+              style={{
+                pointerEvents: onQuadrantClick ? 'auto' : 'none',
+                opacity: 0,
+                animation: `ring-appear 0.5s ease ${1.1 + i * 0.08}s forwards`,
+              }}
               onClick={() => onQuadrantClick?.(quadrant)}
             >
               {getQuadrantLabel(quadrant)}

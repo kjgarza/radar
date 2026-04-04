@@ -75,8 +75,18 @@ export default function RootLayout({
         className="antialiased"
         suppressHydrationWarning
       >
+        {/* ── Fixed background scene ─────────────────────────── */}
+        <div className="scene-bg" aria-hidden="true">
+          <div className="scene-bg-grain" />
+          <div className="scene-bg-bezel" />
+          <div className="scene-bg-orb-1" />
+          <div className="scene-bg-orb-2" />
+          <div className="scene-bg-orb-3" />
+          <div className="scene-bg-grid" />
+        </div>
+
         <div className="min-h-screen flex flex-col">
-          <header className="border-b">
+          <header className="header-bezel sticky top-0 z-40">
             <div className="container mx-auto px-4 py-4">
               <nav className="flex items-center justify-between">
                 <Link href="/" className="text-2xl font-bold">
@@ -99,10 +109,10 @@ export default function RootLayout({
               </nav>
             </div>
           </header>
-          <main className="flex-1 container mx-auto px-4 py-8">
+          <main className="flex-1 container mx-auto px-4 py-8 relative">
             {children}
           </main>
-          <footer className="border-t py-8">
+          <footer className="border-t border-border/30 py-8 relative backdrop-blur-sm bg-background/20">
             <div className="container mx-auto px-4">
               <div className="flex w-full max-w-4xl mx-auto flex-col items-center justify-between gap-4 font-mono text-sm">
                 <div className="flex flex-wrap items-center justify-center gap-2">

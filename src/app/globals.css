@@ -173,3 +173,256 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────── */
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10%       { transform: translate(-2%, -3%); }
+  20%       { transform: translate(3%, 1%); }
+  30%       { transform: translate(-1%, 4%); }
+  40%       { transform: translate(2%, -2%); }
+  50%       { transform: translate(-3%, 3%); }
+  60%       { transform: translate(1%, -4%); }
+  70%       { transform: translate(-2%, 2%); }
+  80%       { transform: translate(4%, -1%); }
+  90%       { transform: translate(-1%, -3%); }
+}
+
+@keyframes gradient-drift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50%       { opacity: 0.7; transform: scale(1.08); }
+}
+
+@keyframes orbit-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes orbit-rev {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+@keyframes ring-appear {
+  from {
+    stroke-dashoffset: 800;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Ring fade — ends at dim opacity so rings don't blast full white */
+@keyframes fade-in-dim {
+  from { opacity: 0; }
+  to   { opacity: 0.3; }
+}
+
+@keyframes fade-in-dimmer {
+  from { opacity: 0; }
+  to   { opacity: 0.06; }
+}
+
+@keyframes blip-pop {
+  0%   { transform: scale(0) translateY(6px); opacity: 0; }
+  70%  { transform: scale(1.15) translateY(-2px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer-border {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Background System ──────────────────────────────────────────────────── */
+
+.scene-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Deep base — subtle warm-dark gradient */
+.scene-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, oklch(0.32 0.03 38 / 0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 80% 90%, oklch(0.28 0.02 250 / 0.25) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, oklch(0.30 0.01 100 / 0.2) 0%, transparent 70%),
+    oklch(0.2679 0.0036 106.6427);
+  animation: gradient-drift 18s ease-in-out infinite;
+  background-size: 200% 200%, 200% 200%, 200% 200%, auto;
+}
+
+/* Grain / film-noise overlay */
+.scene-bg-grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.045;
+  animation: grain 0.8s steps(1) infinite;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* Bezel / vignette — deep rim darkening */
+.scene-bg-bezel {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 90% 85% at 50% 50%,
+    transparent 55%,
+    oklch(0.12 0.005 106 / 0.55) 80%,
+    oklch(0.08 0.003 106 / 0.85) 100%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Ambient glow orbs */
+.scene-bg-orb-1 {
+  position: absolute;
+  top: -15%;
+  left: -10%;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.60 0.13 39 / 0.12) 0%, transparent 70%);
+  filter: blur(60px);
+  animation: glow-pulse 8s ease-in-out infinite;
+}
+
+.scene-bg-orb-2 {
+  position: absolute;
+  bottom: -20%;
+  right: -10%;
+  width: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.55 0.10 250 / 0.10) 0%, transparent 70%);
+  filter: blur(80px);
+  animation: glow-pulse 11s ease-in-out infinite reverse;
+}
+
+.scene-bg-orb-3 {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 35%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.58 0.12 38 / 0.07) 0%, transparent 70%);
+  filter: blur(50px);
+  animation: glow-pulse 14s ease-in-out infinite 3s;
+}
+
+/* Subtle geometric grid pattern */
+.scene-bg-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.025;
+  background-image:
+    linear-gradient(oklch(0.8 0.03 95 / 1) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.8 0.03 95 / 1) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 75%);
+}
+
+/* ─── Entrance Animations ────────────────────────────────────────────────── */
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Stagger helpers */
+.stagger-1  { animation-delay: 0.05s; }
+.stagger-2  { animation-delay: 0.10s; }
+.stagger-3  { animation-delay: 0.16s; }
+.stagger-4  { animation-delay: 0.22s; }
+.stagger-5  { animation-delay: 0.28s; }
+.stagger-6  { animation-delay: 0.35s; }
+
+/* ─── Radar Ring Animations ──────────────────────────────────────────────── */
+
+.radar-ring {
+  stroke-dasharray: 800;
+  animation: ring-appear 1.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.radar-ring-1 { animation-delay: 0.1s; }
+.radar-ring-2 { animation-delay: 0.3s; }
+.radar-ring-3 { animation-delay: 0.5s; }
+.radar-ring-4 { animation-delay: 0.7s; }
+
+.radar-axis {
+  animation: fade-up 0.8s ease both;
+  animation-delay: 0.9s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* ─── Card enhancements ──────────────────────────────────────────────────── */
+
+.card-bezel {
+  position: relative;
+  isolation: isolate;
+}
+
+.card-bezel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    oklch(0.5 0.05 95 / 0.25) 0%,
+    oklch(0.35 0.02 106 / 0.05) 40%,
+    oklch(0.5 0.05 95 / 0.20) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ─── Header bezel ───────────────────────────────────────────────────────── */
+
+.header-bezel {
+  background: oklch(0.2679 0.0036 106 / 0.75);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-bottom: 1px solid oklch(0.5 0.03 95 / 0.15);
+  box-shadow:
+    0 1px 0 0 oklch(0.6 0.05 95 / 0.08),
+    0 4px 24px 0 oklch(0 0 0 / 0.3);
+}

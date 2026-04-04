@@ -13,7 +13,7 @@ export default function EditionsPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-12 md:py-16">
-      <header className="mb-12">
+      <header className="mb-12 animate-fade-up stagger-1">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">
           Radar Editions
         </h1>
@@ -23,7 +23,7 @@ export default function EditionsPage() {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedEditions.map((edition) => {
+        {sortedEditions.map((edition, i) => {
           const releaseDate = new Date(edition.releaseDate).toLocaleDateString(
             'en-US',
             {
@@ -34,8 +34,13 @@ export default function EditionsPage() {
           );
 
           return (
-            <Link key={edition.id} href={`/edition/${edition.id}`}>
-              <Card className="p-6 hover:shadow-lg hover:border-primary/30 transition-all h-full cursor-pointer group">
+            <Link
+              key={edition.id}
+              href={`/edition/${edition.id}`}
+              className="animate-fade-up"
+              style={{ animationDelay: `${0.08 + i * 0.07}s`, animationFillMode: 'both' }}
+            >
+              <Card className="p-6 hover:shadow-lg hover:border-primary/40 transition-all h-full cursor-pointer group bg-background/40 backdrop-blur-sm border-border/40 card-bezel">
                 <h2 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">
                   {edition.version}
                 </h2>

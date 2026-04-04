@@ -102,7 +102,7 @@ export function EditionView({ edition }: EditionViewProps) {
   return (
     <div className="flex min-h-screen w-full">
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block w-80 border-r bg-background">
+      <aside className="hidden lg:block w-80 border-r border-border/40 bg-background/30 backdrop-blur-sm animate-slide-in-left">
         <FilterSidebar onFilterChange={setFilters} edition={edition} isMobile={false} currentFilters={filters} />
       </aside>
 
@@ -110,7 +110,7 @@ export function EditionView({ edition }: EditionViewProps) {
       <div className="flex-1">
         <div className="container mx-auto p-6 space-y-6">
           {/* Header with View Toggle and Mobile Menu */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between animate-fade-up stagger-1">
             <div className="flex items-center gap-4">
               {/* Mobile Menu Trigger */}
               <Sheet>
@@ -147,9 +147,9 @@ export function EditionView({ edition }: EditionViewProps) {
           {/* Main Content Area */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Visualization Area */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 animate-fade-up stagger-2">
               {viewMode === 'chart' ? (
-                <Card className="p-6">
+                <Card className="p-6 bg-background/40 backdrop-blur-sm border-border/40 card-bezel">
                   <RadarChart 
                     blips={isMobile && filters.quadrants.length === 1 ? filteredBlips : edition.blips} 
                     onBlipClick={handleBlipClick}
@@ -163,23 +163,23 @@ export function EditionView({ edition }: EditionViewProps) {
             </div>
 
             {/* Blip Detail Panel - Desktop only */}
-            <div className="hidden lg:block lg:col-span-1">
+            <div className="hidden lg:block lg:col-span-1 animate-fade-up stagger-3">
               {selectedBlip ? (
-                <Card className="p-6 sticky top-6">
+                <Card className="p-6 sticky top-6 bg-background/40 backdrop-blur-sm border-border/40 card-bezel">
                   <h3 className="text-xl font-bold mb-4">{selectedBlip.name}</h3>
                   <BlipDetailContent blip={selectedBlip} />
                 </Card>
               ) : (
-                <Card className="p-6 text-center text-muted-foreground">
+                <Card className="p-6 text-center text-muted-foreground bg-background/40 backdrop-blur-sm border-border/40 card-bezel">
                   <p>Click on a blip to see details</p>
                 </Card>
               )}
             </div>
 
             {/* Mobile Blip Detail - shown as card below chart */}
-            <div className="lg:hidden">
+            <div className="lg:hidden animate-fade-up stagger-4">
               {selectedBlip ? (
-                <Card className="p-6">
+                <Card className="p-6 bg-background/40 backdrop-blur-sm border-border/40">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-xl font-bold">{selectedBlip.name}</h3>
                     <Button 
@@ -193,7 +193,7 @@ export function EditionView({ edition }: EditionViewProps) {
                   <BlipDetailContent blip={selectedBlip} />
                 </Card>
               ) : (
-                <Card className="p-6 text-center text-muted-foreground">
+                <Card className="p-6 text-center text-muted-foreground bg-background/40 backdrop-blur-sm border-border/40">
                   <p>Click on a blip to see details</p>
                 </Card>
               )}
