@@ -2,6 +2,8 @@
 
 A static technology radar website built with Next.js, TypeScript, and Chart.js to visualize and track technology trends and decisions.
 
+**Live radar:** [kjgarza.github.io/radar](https://kjgarza.github.io/radar/)
+
 ## Features
 
 - 📊 **Interactive Radar Chart**: Visualize technologies across quadrants and rings
