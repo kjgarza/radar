@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Shared instructions for coding agents. `AGENTS.md` is a symlink to this file, so Codex, Cursor and others read the same content.
 
 ## Project Overview
 
@@ -50,17 +50,6 @@ const blips = radarService.searchBlips('react');
 
 The service validates all data against Zod schemas at instantiation. Invalid data causes build-time failures.
 
-### Type System
-
-All types are derived from Zod schemas in `src/core/schemas/radar.schema.ts`:
-
-```typescript
-export type Blip = z.infer<typeof BlipSchema>;
-export type Ring = z.infer<typeof RingSchema>; // 'Adopt' | 'Trial' | 'Assess' | 'Hold'
-```
-
-Types are re-exported through `src/core/types/index.ts` for clean imports.
-
 ### Directory Structure
 
 ```
@@ -94,110 +83,8 @@ src/
 - `EditionView.tsx` - Interactive filtering
 - `FilterSidebar.tsx` - User interactions
 
-### Static Route Generation
-
-Dynamic routes use `generateStaticParams()` to pre-render all pages:
-
-```typescript
-// src/app/edition/[id]/page.tsx
-export function generateStaticParams() {
-  const radarService = RadarService.getInstance();
-  return radarService.getAllEditions().map(ed => ({ id: ed.id }));
-}
-```
-
-All pages are pre-rendered at build time to `out/` directory.
-
-## Data Schema
-
-### radar.json Structure
-
-```json
-{
-  "editions": [
-    {
-      "id": "2025-10",
-      "version": "Vol 1 (2025 Oct)",
-      "releaseDate": "2025-10-01T00:00:00Z",
-      "description": "Edition description",
-      "blips": [
-        {
-          "id": "blip-unique-id",
-          "name": "Technology Name",
-          "quadrant": "Languages & Frameworks",
-          "ring": "Trial",
-          "description": "Brief description",
-          "isNew": true,
-          "movement": "moved_in",
-          "previousRing": "Assess",
-          "tags": ["tag1", "tag2"],
-          "links": ["https://example.com"]
-        }
-      ]
-    }
-  ]
-}
-```
-
-### Critical Enums (Order Matters)
-
-**Rings** (inner → outer, affects radius calculation):
-```typescript
-['Adopt', 'Trial', 'Assess', 'Hold']
-```
-
-**Quadrants** (affects angle assignment in radar chart):
-```typescript
-['Languages & Frameworks', 'Tools', 'Platforms', 'Techniques']
-```
-
-**Movement** (affects visual indicators):
-```typescript
-['moved_in', 'moved_out', 'no_change']
-```
-
-## Radar Chart Implementation
-
-### Positioning Algorithm
-
-Located in `src/components/radar/RadarChart.tsx`:
-
-- **Quadrants** mapped to angles: Languages(0°), Tools(90°), Platforms(180°), Techniques(270°)
-- **Rings** mapped to radius: `{ Adopt: 0.25, Trial: 0.5, Assess: 0.75, Hold: 1.0 }`
-- Blips distributed within quadrant with angle spread + random jitter for visual separation
-
-Chart.js `Scatter` chart type with polar coordinates converted to Cartesian (x, y).
-
-### Quadrant Colors
-
-```typescript
-const QUADRANT_COLORS = {
-  'Languages & Frameworks': 'rgba(59, 130, 246, 0.8)',  // blue
-  'Tools': 'rgba(34, 197, 94, 0.8)',                   // green
-  'Platforms': 'rgba(249, 115, 22, 0.8)',              // orange
-  'Techniques': 'rgba(168, 85, 247, 0.8)',             // purple
-};
-```
-
-## Styling System
-
-- **Tailwind CSS 4**: Utility-first styling with OKLCH colors
-- **shadcn/ui**: Zinc theme, New York style, with CSS variables for theming
-- **Dark mode**: Default dark, light available via system preference
-- **Responsive**: Mobile-first breakpoints
-- Theme configuration in `src/app/globals.css`
-
-See `STYLING.md` for full customization guide.
 
 ## Deployment
-
-### GitHub Pages (Current)
-
-Configured via `.github/workflows/deploy.yml`:
-- Triggers on push to `main` branch
-- Uses Bun for fast dependency installation and builds
-- Builds with `NEXT_PUBLIC_BASE_PATH=/radar` for GitHub Pages
-- Deploys `out/` directory to GitHub Pages
 
 ### Other Platforms
 
@@ -206,6 +93,16 @@ The `out/` directory can be deployed to any static hosting:
 - Netlify
 - AWS S3 + CloudFront
 - Cloudflare Pages
+
+## Where detail lives
+
+Nested files load lazily when you read files in that directory.
+
+- `data/CLAUDE.md` - radar.json structure, critical enums (ring/quadrant/movement order)
+- `src/components/radar/CLAUDE.md` - chart positioning algorithm, quadrant colors
+- `src/core/CLAUDE.md` - Zod-derived type system
+- `src/app/CLAUDE.md` - static route generation, Tailwind/shadcn styling
+- `.github/CLAUDE.md` - GitHub Pages deploy workflow
 
 ## Common Anti-Patterns to Avoid
 
@@ -230,3 +127,9 @@ The `out/` directory can be deployed to any static hosting:
 - **Target**: ES2017
 - **Module resolution**: `bundler` (Next.js optimized)
 - **JSON imports**: Enabled via `resolveJsonModule`
+
+<!--
+Canonical instruction file. Edit this one; AGENTS.md is a symlink to it.
+Machine-local or personal notes go in CLAUDE.local.md (gitignored).
+Convention: notes/scratchpad/10-Projects/specs/agent-instructions-convention.md
+-->

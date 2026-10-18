@@ -42,3 +42,10 @@ next-env.d.ts
 
 
 docs/
+CLAUDE.local.md
+
+# local
+.claude/worktrees/
+.claude/settings.local.json
+.DS_Store
+.playwright-mcp/
