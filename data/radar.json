@@ -410,6 +410,23 @@
           "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/unattended-overnight-agentic-builds"
         },
         {
+          "id": "blip-stacked-pull-requests",
+          "name": "Stacked pull requests",
+          "quadrant": "Techniques",
+          "ring": "Trial",
+          "description": "I use stacked PRs in some of my repos and find them useful: a large change becomes an ordered chain of small PRs, each targeting the branch below it, so every review stays small. Thoughtworks puts this in Hold. I disagree, at least for work where an agent produces big diffs that are hard to review in one piece. The cost is keeping the stack rebased when a lower PR changes, and I have only used it in some repos so far.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "git",
+            "pull-requests",
+            "code-review",
+            "workflow"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/stacked-pull-requests"
+        },
+        {
           "id": "blip-blanket-frontier-model-usage",
           "name": "Blanket frontier model usage",
           "quadrant": "Techniques",
