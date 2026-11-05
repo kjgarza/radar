@@ -285,7 +285,7 @@
       "id": "2026-11",
       "version": "Vol 3 (2026 Nov)",
       "releaseDate": "2026-11-05T00:00:00Z",
-      "description": "November 2026 edition covering agent harness practices: context engineering, subagents, agent-maintained knowledge bases and model routing.",
+      "description": "November 2026 edition covering agent harness practices (context engineering, subagents, agent-maintained knowledge bases, model routing) and the tools around them.",
       "blips": [
         {
           "id": "blip-progressive-context-disclosure",
@@ -442,6 +442,93 @@
             "antipattern"
           ],
           "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/blanket-frontier-model-usage"
+        },
+        {
+          "id": "blip-mise",
+          "name": "mise",
+          "quadrant": "Tools",
+          "ring": "Adopt",
+          "description": "mise manages my runtimes (node, python, go, bun, deno) and project tasks from one config file. Tasks cover small jobs like bundling a repo for an LLM with repomix, and just still handles some projects. Thoughtworks calls it a recommended default for development environments, and for my polyglot set of repos I agree.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://mise.jdx.dev"
+          ],
+          "tags": [
+            "dev-environment",
+            "version-manager",
+            "tasks",
+            "rust"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/tools/mise"
+        },
+        {
+          "id": "blip-herdr",
+          "name": "Herdr",
+          "quadrant": "Tools",
+          "ring": "Trial",
+          "description": "A terminal multiplexer built for running several coding agents side by side. A hook reports each Claude Code session's state back to it, so I can see which agent is working, blocked or done. I use it for real work and am still deciding whether it replaces tmux, which is still installed.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "terminal",
+            "multiplexer",
+            "agents",
+            "parallel-agents"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/tools/herdr"
+        },
+        {
+          "id": "blip-openai-codex",
+          "name": "OpenAI Codex",
+          "quadrant": "Tools",
+          "ring": "Trial",
+          "description": "I use Codex sometimes as a second CLI coding agent next to Claude Code. Thoughtworks has it in Adopt. It sits in Trial for me because Claude Code is still my main harness.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "agents",
+            "coding",
+            "cli",
+            "openai"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/tools/openai-codex"
+        },
+        {
+          "id": "blip-opencode",
+          "name": "OpenCode",
+          "quadrant": "Tools",
+          "ring": "Hold",
+          "description": "I used OpenCode for a while as a harness that works across models. I stopped when access to Claude through it was blocked, and I have not gone back. Thoughtworks keeps it in Adopt and recommends it for open-weight and local models, which is a different use from mine.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "agents",
+            "coding",
+            "cli",
+            "open-source"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/tools/opencode"
+        },
+        {
+          "id": "blip-rtk",
+          "name": "RTK",
+          "quadrant": "Tools",
+          "ring": "Hold",
+          "description": "I set up RTK to compress command output before it reaches the agent. Thoughtworks warns that this kind of compression can break prompt caching and drop information the agent needs. I agree and have it on Hold.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "context-engineering",
+            "tokens",
+            "compression",
+            "antipattern"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/naive-context-compression"
         }
       ]
     }
