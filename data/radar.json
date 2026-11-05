@@ -280,6 +280,153 @@
           "tags": ["claude-code", "plugins", "skills", "context-engineering", "reusability"]
         }
       ]
+    },
+    {
+      "id": "2026-11",
+      "version": "Vol 3 (2026 Nov)",
+      "releaseDate": "2026-11-05T00:00:00Z",
+      "description": "November 2026 edition covering agent harness practices: context engineering, subagents, agent-maintained knowledge bases and model routing.",
+      "blips": [
+        {
+          "id": "blip-progressive-context-disclosure",
+          "name": "Progressive context disclosure",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "My root CLAUDE.md is a short router: a table of where things live and a handful of rules, with each project holding its own detail. Skills and MCP tools load when they are needed instead of at session start. The habit that matters is resisting the urge to add one more rule to the always-loaded file. Thoughtworks moved this to Adopt in the same Radar, and my experience matches.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "context-engineering",
+            "agents",
+            "claude-code",
+            "skills"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/progressive-context-disclosure"
+        },
+        {
+          "id": "blip-subagents-context-management",
+          "name": "Subagents for context management",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "I delegate searches, test runs and log summaries to subagents so the main session only sees a short result. A routing table in my global instructions picks the model per task: haiku for read-only search, sonnet for specs and spikes, and the main session for design decisions. Parallelism was never the reason. Keeping tool output and retries out of the main context is.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "subagents",
+            "context-engineering",
+            "agents",
+            "model-routing"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/subagents-for-better-context-management"
+        },
+        {
+          "id": "blip-agent-maintained-knowledge-base",
+          "name": "Agent-maintained knowledge bases",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "My Obsidian vault is a PARA-structured knowledge base that agents read and maintain, with qmd (BM25, vectors, reranking, all local) as the search layer. Daily notes feed a task ledger, and weekly and monthly reviews are generated from them. The risk Thoughtworks names is drift, and I see it: some project notes go stale and need a periodic sweep to stay honest.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [
+            "https://github.com/tobi/qmd"
+          ],
+          "tags": [
+            "obsidian",
+            "knowledge-base",
+            "qmd",
+            "second-brain",
+            "agents"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/agent-maintained-knowledge-bases"
+        },
+        {
+          "id": "blip-feedback-flywheel",
+          "name": "Feedback flywheel",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "When an agent gets something wrong, the correction goes into CLAUDE.md, a skill or a memory file so the next session does not repeat it. My verify-assumptions rule, the no-attribution rule and the shortwing stdin note all came from specific failures. It works for a single developer. Sharing it across a team is the part I have not tried.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "agents",
+            "claude-code",
+            "memory",
+            "continuous-improvement"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/feedback-flywheel"
+        },
+        {
+          "id": "blip-coding-harness-general-purpose-agents",
+          "name": "Coding harness for general-purpose agents",
+          "quadrant": "Techniques",
+          "ring": "Adopt",
+          "description": "I run non-coding work on Claude Code: task triage, daily briefings, calendar blocking, job-search tracking and flat hunting. Skills, hooks, subagents and MCP connectors already provide the loop, permissions and tooling I would otherwise build myself in an agent framework. For personal automation this beat assembling a framework.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "agents",
+            "claude-code",
+            "harness",
+            "automation"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/coding-harness-for-general-purpose-agents"
+        },
+        {
+          "id": "blip-grilling",
+          "name": "Grilling",
+          "quadrant": "Techniques",
+          "ring": "Trial",
+          "description": "Before building anything non-trivial I have the agent interview me about the plan until the open questions are gone. It stops the agent guessing where my intent is vague, and it often shows me I had not decided something. I keep it as a skill that I invoke deliberately. On small tasks the interview costs more than it saves.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "agents",
+            "planning",
+            "skills",
+            "claude-code"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/grilling"
+        },
+        {
+          "id": "blip-unattended-agentic-builds",
+          "name": "Unattended agentic builds",
+          "quadrant": "Techniques",
+          "ring": "Trial",
+          "description": "I hand a bounded piece of work to a background agent and review the result later, for example building a small library with tests while I do something else, or running a scheduled momentum sweep over stale tasks. It works when the task has a clear spec and a test suite to check against. The weak point is permissions: a job that needs one denied action stops at a push or PR step and waits for me.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "agents",
+            "background-jobs",
+            "automation",
+            "claude-code"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/unattended-overnight-agentic-builds"
+        },
+        {
+          "id": "blip-blanket-frontier-model-usage",
+          "name": "Blanket frontier model usage",
+          "quadrant": "Techniques",
+          "ring": "Hold",
+          "description": "Sending every task to the most capable model wastes money and adds latency. I route by task: bulk and mechanical work to the smallest tier, everyday work to the middle tier, and the top models only for the hardest design and judgment calls. I check current prices before routing by cost instead of trusting memory. Defaulting everything to the biggest model is the habit I am steering away from.",
+          "isNew": true,
+          "movement": "moved_in",
+          "links": [],
+          "tags": [
+            "llm",
+            "cost",
+            "model-routing",
+            "antipattern"
+          ],
+          "thoughtworksUrl": "https://www.thoughtworks.com/en-us/radar/techniques/blanket-frontier-model-usage"
+        }
+      ]
     }
   ]
 }
